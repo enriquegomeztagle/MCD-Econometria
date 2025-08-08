@@ -172,3 +172,6 @@ simulinkcache.slxc
 
 # MATLAB crash dumps
 matlab_crash_dump.*
+
+########################## CUSTOM ##########################
+.DS_Store
