@@ -168,10 +168,13 @@ simulinkcache.slxc
 # Project definition and settings
 *.mlproj
 *.mldatx
-*.m
 
 # MATLAB crash dumps
 matlab_crash_dump.*
 
 ########################## CUSTOM ##########################
 .DS_Store
+**/**/docs/*
+# Exclude .tex and .pdf files
+!**/**/docs/*.tex
+!**/**/docs/*.pdf
