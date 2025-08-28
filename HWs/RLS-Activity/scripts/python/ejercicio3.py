@@ -8,9 +8,6 @@ import statsmodels.api as sm
 from statsmodels.stats.stattools import jarque_bera
 from statsmodels.stats.diagnostic import het_breuschpagan
 
-# -------------------------
-# Configuración de rutas
-# -------------------------
 DATA_CANDIDATES = [
     "../../data/flowers.xlsx",
     "../../data/flowers.csv",
@@ -18,9 +15,6 @@ DATA_CANDIDATES = [
 PLOTS_DIR = "../../plots/python/ejercicio3"
 os.makedirs(PLOTS_DIR, exist_ok=True)
 
-# ----------------------------------------
-# Carga de datos (detecta columnas y tipos)
-# ----------------------------------------
 for path in DATA_CANDIDATES:
     if os.path.exists(path):
         DATA_PATH = path
@@ -88,7 +82,6 @@ elif r < 0:
 else:
     print("Dirección: nula")
 
-# IC 95% de r (Fisher z)
 z = np.arctanh(r); se_z = 1/np.sqrt(n-3); z_crit = stats.norm.ppf(0.975)
 lo_r, hi_r = np.tanh(z - z_crit*se_z), np.tanh(z + z_crit*se_z)
 print(f"IC 95% de r: [{lo_r:.4f}, {hi_r:.4f}]")
@@ -176,12 +169,11 @@ print("Tabla ANOVA (redondeada):")
 print(anova.round(4))
 print(f"F = {F_stat:.4f}, df1 = {DF_model}, df2 = {DF_resid}, p-valor = {p_F:.6f}")
 
-# %% (d.1) Diagnósticos: residuales, normalidad y homocedasticidad
+# %% 
 print("\n(d.1) Diagnósticos del modelo...")
 resid = model.resid
 fitted = model.fittedvalues
 
-# Residuos vs ajustados
 plt.figure(figsize=(6.8, 4.6))
 plt.scatter(fitted, resid)
 plt.axhline(0, color='k', linestyle='--', linewidth=1)
@@ -194,7 +186,6 @@ plt.savefig(resid_fit_path, dpi=300, bbox_inches="tight")
 print("Figura guardada en:", resid_fit_path)
 plt.show()
 
-# QQ-plot de residuales
 fig = sm.qqplot(resid, line='45')
 plt.title("QQ-plot de residuales")
 qq_path = os.path.join(PLOTS_DIR, "qqplot_residuals.png")
@@ -202,7 +193,6 @@ plt.savefig(qq_path, dpi=300, bbox_inches="tight")
 print("Figura guardada en:", qq_path)
 plt.show()
 
-# Histograma de residuales
 plt.figure(figsize=(6.8,4.6))
 plt.hist(resid, bins=8, edgecolor='black')
 plt.title("Histograma de residuales")
@@ -213,11 +203,9 @@ plt.savefig(hist_path, dpi=300, bbox_inches="tight")
 print("Figura guardada en:", hist_path)
 plt.show()
 
-# Pruebas de normalidad / JB
 jb_stat, jb_p, skew, kurt = jarque_bera(resid)
 print(f"Jarque-Bera: JB = {jb_stat:.4f}, p = {jb_p:.6f}, skew = {skew:.4f}, kurt = {kurt:.4f}")
 
-# Breusch-Pagan para heterocedasticidad
 bp_stat, bp_p, fval, fp = het_breuschpagan(resid, sm.add_constant(fitted))
 print(f"Breusch-Pagan: LM = {bp_stat:.4f}, p = {bp_p:.6f}; F = {fval:.4f}, p(F) = {fp:.6f}")
 

@@ -6,9 +6,6 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import statsmodels.api as sm
 
-# -------------------------
-# Configuración de rutas
-# -------------------------
 DATA_CANDIDATES = [
     "../../data/cableTV.xlsx",
     "../../data/cableTV.csv",
@@ -16,9 +13,6 @@ DATA_CANDIDATES = [
 PLOTS_DIR = "../../plots/python/ejercicio4"
 os.makedirs(PLOTS_DIR, exist_ok=True)
 
-# ----------------------------------------
-# Carga de datos y preprocesamiento básico
-# ----------------------------------------
 for path in DATA_CANDIDATES:
     if os.path.exists(path):
         DATA_PATH = path
@@ -129,10 +123,9 @@ print("\n(b) ANOVA y significancia — todos los datos")
 X_full = sm.add_constant(x)
 model_full = sm.OLS(y, X_full).fit()
 
-# Create ANOVA table manually using model statistics
 SS_total = np.sum((y - np.mean(y)) ** 2)
-SS_model = model_full.ess  # explained sum of squares
-SS_resid = model_full.ssr  # residual sum of squares
+SS_model = model_full.ess
+SS_resid = model_full.ssr
 df_model = model_full.df_model
 df_resid = model_full.df_resid
 df_total = df_model + df_resid
@@ -142,7 +135,6 @@ MS_resid = SS_resid / df_resid
 F_stat = MS_model / MS_resid
 p_value = 1 - stats.f.cdf(F_stat, df_model, df_resid)
 
-# Create ANOVA table as DataFrame
 anova_data = {
     "df": [df_model, df_resid, df_total],
     "sum_sq": [SS_model, SS_resid, SS_total],
@@ -205,10 +197,9 @@ plt.show()
 X_nz = sm.add_constant(x_nz)
 model_nz = sm.OLS(y_nz, X_nz).fit()
 
-# Create ANOVA table manually using model statistics
 SS_total_nz = np.sum((y_nz - np.mean(y_nz)) ** 2)
-SS_model_nz = model_nz.ess  # explained sum of squares
-SS_resid_nz = model_nz.ssr  # residual sum of squares
+SS_model_nz = model_nz.ess
+SS_resid_nz = model_nz.ssr
 df_model_nz = model_nz.df_model
 df_resid_nz = model_nz.df_resid
 df_total_nz = df_model_nz + df_resid_nz
@@ -218,7 +209,6 @@ MS_resid_nz = SS_resid_nz / df_resid_nz
 F_stat_nz = MS_model_nz / MS_resid_nz
 p_value_nz = 1 - stats.f.cdf(F_stat_nz, df_model_nz, df_resid_nz)
 
-# Create ANOVA table as DataFrame
 anova_data_nz = {
     "df": [df_model_nz, df_resid_nz, df_total_nz],
     "sum_sq": [SS_model_nz, SS_resid_nz, SS_total_nz],

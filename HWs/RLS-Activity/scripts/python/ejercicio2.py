@@ -60,10 +60,9 @@ r, pval = stats.pearsonr(x, y)
 print(f"r = {r:.4f}")
 print(f"p-valor (bilateral) = {pval:.6f}")
 
-# IC de r vía transformación z de Fisher
-z = np.arctanh(r)  # Fisher z
+z = np.arctanh(r)
 se_z = 1 / np.sqrt(n - 3)
-z_crit = stats.norm.ppf(0.975)  # 1.96
+z_crit = stats.norm.ppf(0.975)
 lo_z, hi_z = z - z_crit * se_z, z + z_crit * se_z
 lo_r, hi_r = np.tanh(lo_z), np.tanh(hi_z)
 print(f"IC 95% para r: [{lo_r:.4f}, {hi_r:.4f}]")
@@ -87,7 +86,7 @@ df_resid = int(model.df_resid)
 beta1_H0 = 0.1
 
 t_stat = (beta1_hat - beta1_H0) / se_beta1
-p_one_sided = 1 - stats.t.cdf(t_stat, df=df_resid)  # H1: beta1 > 0.1
+p_one_sided = 1 - stats.t.cdf(t_stat, df=df_resid)
 
 print(f"beta1_hat = {beta1_hat:.6f}")
 print(f"SE(beta1) = {se_beta1:.6f}")

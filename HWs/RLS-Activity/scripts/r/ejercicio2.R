@@ -38,7 +38,7 @@ for (col in inversion_col_candidates) {
 x <- as.numeric(df[[inversion_col]])
 y <- as.numeric(df[[ventas_col]])
 
-n <- length(x)  # Use length of x vector instead of length of dataframe
+n <- length(x)
 cat("\nColumnas detectadas -> y:", ventas_col, ", x:", inversion_col, "; n =", n, "\n")
 
 # %%
@@ -80,7 +80,6 @@ pval <- cor_result$p.value
 cat("r =", round(r, 4), "\n")
 cat("p-valor (bilateral) =", round(pval, 6), "\n")
 
-# Get confidence interval from cor.test
 ci_cor <- cor_result$conf.int
 cat("IC 95% para r (cor.test): [", round(ci_cor[1], 4), ",", round(ci_cor[2], 4), "]\n")
 

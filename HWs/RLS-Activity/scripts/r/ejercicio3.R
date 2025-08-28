@@ -62,7 +62,7 @@ for (col in y_candidates) {
 x <- as.numeric(df[[x_col]])
 y <- as.numeric(df[[y_col]])
 
-n <- length(x)  # Use length of x vector instead of length of dataframe
+n <- length(x)
 cat("\nColumnas detectadas -> x:", x_col, ", y:", y_col, "; n =", n, "\n")
 
 # %%
@@ -112,7 +112,6 @@ if (r > 0) {
   cat("Dirección: nula\n")
 }
 
-# Get confidence interval from cor.test
 ci_cor <- cor_result$conf.int
 cat("IC 95% de r: [", round(ci_cor[1], 4), ",", round(ci_cor[2], 4), "]\n")
 
@@ -256,10 +255,10 @@ cat("Jarque-Bera: JB =", round(jb_stat, 4), ", p =", round(jb_p, 6),
 
 # %%
 cat("\n(e) Error estándar de la pendiente e IC al 95%...\n")
-# Get standard errors from the model summary
+
 model_summary <- summary(model)
 se_b1 <- model_summary$coefficients[2, 2]
-# Use the correct degrees of freedom from the model
+
 df_resid_model <- df.residual(model)
 t_crit <- qt(0.975, df_resid_model)
 ci_b1 <- c(b1_hat - t_crit*se_b1, b1_hat + t_crit*se_b1)
