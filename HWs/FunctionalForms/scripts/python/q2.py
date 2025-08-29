@@ -152,37 +152,26 @@ b_hat = float(beta)
 se_b = se_beta
 
 t_stat = (b_hat - 100.0) / se_b
-
 df_res = int(round(model.df_resid))
+
 if sps is not None:
-    cdf_t = sps.t.cdf(t_stat, df=df_res)
-    pval_left = cdf_t
-    pval_two = 2 * min(pval_left, 1 - cdf_t)
+    pval_right = sps.t.sf(t_stat, df=df_res)
 else:
     from math import erf, sqrt
 
     phi = 0.5 * (1.0 + erf(t_stat / sqrt(2)))
-    pval_left = phi
-    pval_two = 2 * min(pval_left, 1 - phi)
+    pval_right = 1.0 - phi
 
 alpha_sig = 0.05
-
-
-decision_left = "rechazar H0" if pval_left < alpha_sig else "No rechazar H0"
-decision_two = "rechazar H0" if pval_two < alpha_sig else "No rechazar H0"
+decision_right = "rechazar H0" if pval_right < alpha_sig else "No rechazar H0"
 
 print(
     "\n================  PREGUNTA 3 – Afirmación sobre incremento del 1% (Francia)  ================"
 )
-print("Hipótesis (afirmación como H0, cola izquierda): H0: b >= 100  vs  H1: b < 100")
+print("Hipótesis: H0: b <= 100  vs  H1: b > 100")
 print(f"b_hat = {b_hat:.4f}, se(b) = {se_b:.4f}, df = {df_res}")
 print(f"Estadístico t = {t_stat:.4f}")
-print(f"p-valor (cola izquierda) = {pval_left:.4g}")
-print(f"Decisión (α=0.05): {decision_left}")
-
-print("\nHipótesis (comparación exacta): H0: b = 100  vs  H1: b ≠ 100")
-print(f"p-valor (dos colas) = {pval_two:.4g}")
-print(f"Decisión (α=0.05): {decision_two}")
-
+print(f"p-valor (cola derecha) = {pval_right:.4g}")
 impacto_1pct = 0.01 * b_hat
-print(f"\nImpacto de 1% en S: 0.01*b = {impacto_1pct:.4f} mde")
+print(f"Impacto de 1% en S: 0.01*b = {impacto_1pct:.4f} mde")
+print(f"Decisión (α=0.05): {decision_right}")
