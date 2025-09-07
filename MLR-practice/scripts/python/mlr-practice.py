@@ -18,9 +18,6 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 PLOTS_DIR = Path("../../plots/python/")
 PLOTS_DIR.mkdir(parents=True, exist_ok=True)
 
-TAB_OUT = Path("../../data/processed")
-TAB_OUT.mkdir(parents=True, exist_ok=True)
-
 LATEX_OUT = Path("../../docs/latex_utils/tables")
 LATEX_OUT.mkdir(parents=True, exist_ok=True)
 
