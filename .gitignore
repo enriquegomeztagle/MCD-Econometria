@@ -174,8 +174,14 @@ matlab_crash_dump.*
 
 ########################## CUSTOM ##########################
 .DS_Store
-**/**/docs/*
-# Exclude .tex and .pdf files
-!**/**/docs/*.tex
-!**/**/docs/**/**/*.tex
-!**/**/docs/*.pdf
+# Exclude LaTeX auxiliary files from docs directories
+**/**/docs/*.aux
+**/**/docs/*.fdb_latexmk
+**/**/docs/*.fls
+**/**/docs/*.log
+**/**/docs/*.out
+**/**/docs/*.synctex.gz
+**/**/docs/*.toc
+# Include .tex and .pdf files in docs directories (any nesting level)
+!**/**/docs/**/*.tex
+!**/**/docs/**/*.pdf
