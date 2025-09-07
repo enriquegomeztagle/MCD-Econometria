@@ -177,4 +177,5 @@ matlab_crash_dump.*
 **/**/docs/*
 # Exclude .tex and .pdf files
 !**/**/docs/*.tex
+!**/**/docs/**/**/*.tex
 !**/**/docs/*.pdf
