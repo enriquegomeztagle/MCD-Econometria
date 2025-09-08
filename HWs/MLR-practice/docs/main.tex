@@ -1,0 +1,78 @@
+\documentclass[10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath, amssymb}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{letterpaper, margin=1in}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{caption}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Universidad Panamericana \\ Maestría en Ciencia de Datos \\ Econometría \\ \vspace{0.5cm} Actividad RLM}
+\author{Enrique Ulises Báez Gómez Tagle}
+\date{\today}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introducción}
+Se presentan y analizan el siguiente juego de datos cuyas variables son:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|l|}
+\hline
+\textbf{Variable} & \textbf{Descripción} \\
+\hline
+1 Educación & Gasto per cápita en educación pública (en dólares) \\
+\hline
+2 Ingreso & Ingreso per cápita anual (en dólares) \\
+\hline
+3 Menores & Porcentaje de menores de 18 años de edad (por cada mil) \\
+\hline
+4 Urbano & Proporción de la población que reside en áreas urbanas \\
+\hline
+\end{tabular}
+\caption{Variables del conjuto de datos}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pregunta 1}
+Utilizando los datos, considere el modelo de regresión lineal múltiple 
+\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \varepsilon
+\]
+donde $y$ representa la respuesta educación, $x_1$ el ingreso per cápita, $x_2$ el porcentaje de menores de 18 años y $x_3$ la proporción de habitantes que reside en áreas urbanas. Realice el ajuste del modelo (1). \\
+
+\textcolor{blue}{RESPUESTA: }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pregunta 2}
+Encuentre una estimación de la varianza de los errores $S^2 = e'e/n$, la matriz de covarianzas del vector de parámetros y los errores estándar de los coeficientes individuales. \\
+
+\textcolor{blue}{RESPUESTA: }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pregunta 3}
+Construya un intervalo del 90\% de confianza para el coeficiente $\beta_2$. \\
+
+\textcolor{blue}{RESPUESTA: }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pregunta 4}
+Calcule el gasto en educación pública que se esperaría a un nivel “promedio” de los regresores, esto es $(1,\bar{x})$. \\
+
+\textcolor{blue}{RESPUESTA: }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pregunta 5}
+Realice la prueba de significancia del modelo de regresión (1), indicando claramente la hipótesis, estadístico de prueba, región de rechazo y conclusión. \\
+
+\textcolor{blue}{RESPUESTA: }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Link al repositorio con código fuente}
+\url{https://github.com/enriquegomeztagle/MCD-Econometria/tree/main/HWs/MLR-practice}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+
