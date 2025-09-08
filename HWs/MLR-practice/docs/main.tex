@@ -8,11 +8,21 @@
 \usepackage{geometry}
 \geometry{letterpaper, margin=1in}
 \usepackage{graphicx}
-\usepackage{hyperref}
 \usepackage{float}
 \usepackage{colortbl}
 \usepackage{caption}
 \captionsetup{labelfont={color=blue}, textfont={color=blue}}
+\usepackage{tocloft}
+\renewcommand{\cftsecfont}{\color{blue}}
+\renewcommand{\cftsubsecfont}{\color{blue}}
+\renewcommand{\cftsubsubsecfont}{\color{blue}}
+
+\renewcommand{\cftsecpagefont}{\color{blue}}
+\renewcommand{\cftsubsecpagefont}{\color{blue}}
+\renewcommand{\cftsubsubsecpagefont}{\color{blue}}
+\renewcommand{\cfttoctitlefont}{\color{blue}\bfseries}
+
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue]{hyperref}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{Universidad Panamericana \\ Maestría en Ciencia de Datos \\ Econometría \\ \vspace{0.5cm} Actividad RLM}
 \author{Enrique Ulises Báez Gómez Tagle}
@@ -20,7 +30,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \maketitle
+
 \tableofcontents
+
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introducción}
