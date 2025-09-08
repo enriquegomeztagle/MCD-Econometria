@@ -75,10 +75,9 @@ Encuentre una estimación de la varianza de los errores $S^2 = e'e/n$, la matriz
 
 \textcolor{blue}{
     \textbf{Estimación de la varianza del error:}
-    Sea $\hat{\mathbf e}=\mathbf y-\mathbf X\hat{\boldsymbol\beta}$. La varianza de los errores se estima como
+    Sea $\hat{\mathbf e}=\mathbf y-\mathbf X\hat{\boldsymbol\beta}$. En este reporte usaremos la estimación insesgada de la varianza del error:
     \[
-        S^2 = \frac{\hat{\mathbf e}'\hat{\mathbf e}}{n}
-        \quad \text{(} \widehat{\sigma}^2 = \tfrac{\hat{\mathbf e}'\hat{\mathbf e}}{n-p} \text{ con } p=4\text{)}.
+        \widehat{\sigma}^2 = \tfrac{\hat{\mathbf e}'\hat{\mathbf e}}{n-p}
     \]
     Con los datos del ejercicio se obtiene:
     \input{latex_utils/tables/varianza_error.tex}
@@ -122,11 +121,8 @@ Calcule el gasto en educación pública que se esperaría a un nivel “promedio
     Los promedios muestrales de los regresores son:
     \input{latex_utils/tables/tabla_prediccion_media.tex}
     Sustituyendo estos valores en la ecuación estimada se obtiene el gasto en educación pública esperado en el nivel promedio de los regresores:
-    \[
-        \hat y(\bar x) = 196.31.
-    \]
+    $\hat y(\bar x) = 196.31$ dólares per cápita.
 }
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 5}
 Realice la prueba de significancia del modelo de regresión (1), indicando claramente la hipótesis, estadístico de prueba, región de rechazo y conclusión. \\
