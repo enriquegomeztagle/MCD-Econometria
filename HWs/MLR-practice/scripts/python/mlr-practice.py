@@ -15,9 +15,6 @@ from pathlib import Path
 DATA_DIR = Path("../../data/")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-PLOTS_DIR = Path("../../plots/python/")
-PLOTS_DIR.mkdir(parents=True, exist_ok=True)
-
 LATEX_OUT = Path("../../docs/latex_utils/tables")
 LATEX_OUT.mkdir(parents=True, exist_ok=True)
 
@@ -194,7 +191,7 @@ save_latex_table(
 cov_df = cov_matrix.copy()
 cov_df.index.name = "Parámetro"
 cov_df = cov_df.reset_index()
-
+print(cov_df)
 save_latex_table(
     df=cov_df,
     filename="matriz_covarianzas_parametros.tex",
