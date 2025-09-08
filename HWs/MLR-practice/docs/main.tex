@@ -12,6 +12,7 @@
 \usepackage{float}
 \usepackage{colortbl}
 \usepackage{caption}
+\captionsetup{labelfont={color=blue}, textfont={color=blue}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{Universidad Panamericana \\ Maestría en Ciencia de Datos \\ Econometría \\ \vspace{0.5cm} Actividad RLM}
 \author{Enrique Ulises Báez Gómez Tagle}
@@ -25,31 +26,49 @@
 \section{Introducción}
 Se presentan y analizan el siguiente juego de datos cuyas variables son:
 \begin{table}[H]
-\centering
-\begin{tabular}{|c|l|}
-\hline
-\textbf{Variable} & \textbf{Descripción} \\
-\hline
-1 Educación & Gasto per cápita en educación pública (en dólares) \\
-\hline
-2 Ingreso & Ingreso per cápita anual (en dólares) \\
-\hline
-3 Menores & Porcentaje de menores de 18 años de edad (por cada mil) \\
-\hline
-4 Urbano & Proporción de la población que reside en áreas urbanas \\
-\hline
-\end{tabular}
-\caption{Variables del conjuto de datos}
+    \centering
+    \captionsetup{labelfont={color=black}, textfont={color=black}}
+    \begin{tabular}{|c|l|}
+        \hline
+        \textbf{Variable} & \textbf{Descripción} \\
+        \hline
+        1 Educación & Gasto per cápita en educación pública (en dólares) \\
+        \hline
+        2 Ingreso & Ingreso per cápita anual (en dólares) \\
+        \hline
+        3 Menores & Porcentaje de menores de 18 años de edad (por cada mil) \\
+        \hline
+        4 Urbano & Proporción de la población que reside en áreas urbanas \\
+        \hline
+    \end{tabular}
+    \caption{Variables del conjuto de datos}
 \end{table}
+A continuación se presentan las primeras filas del conjunto de datos:
+\input{latex_utils/tables/tabla_head_datos.tex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 1}
 Utilizando los datos, considere el modelo de regresión lineal múltiple 
 \[
 y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \varepsilon
 \]
-donde $y$ representa la respuesta educación, $x_1$ el ingreso per cápita, $x_2$ el porcentaje de menores de 18 años y $x_3$ la proporción de habitantes que reside en áreas urbanas. Realice el ajuste del modelo (1). \\
+donde $y$ representa la respuesta educación, $x_1$ el ingreso per cápita, $x_2$ el porcentaje de menores de 18 años y $x_3$ la proporción de habitantes que reside en áreas urbanas. 
+Realice el ajuste del modelo (1). \\
 
-\textcolor{blue}{RESPUESTA: }
+    \textcolor{blue}{
+        \textbf{Ajuste por Mínimos Cuadrados Ordinarios (MCO):} El estimador viene dado por:
+        \[
+        \hat{\boldsymbol{\beta}}=(\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y},\quad \hat{\mathbf{y}}=\mathbf{X}\hat{\boldsymbol{\beta}}.
+        \]
+        Usando los datos, el modelo estimado es:
+        \[
+        \widehat{y}= -286.8388\; +\; 0.080653\, x_1\; +\; 0.817338\, x_2\; -\; 0.105806\, x_3,
+        \]
+        \noindent donde $x_1$ es \emph{ingreso}, $x_2$ \emph{menores} y $x_3$ \emph{urbano}. \\
+        \noindent \textbf{Coeficientes y errores estándar:}
+        \input{latex_utils/tables/reg_multiple_coeficientes.tex}
+        \noindent \textbf{Métricas del ajuste:} $R^2=0.690$, $R^2_{aj}=0.670$, $F(3,47)=34.81$, $\,\,p\text{-valor}<10^{-10}$.\\
+        \input{latex_utils/tables/tabla_metricas_regresion.tex}
+    }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 2}
 Encuentre una estimación de la varianza de los errores $S^2 = e'e/n$, la matriz de covarianzas del vector de parámetros y los errores estándar de los coeficientes individuales. \\
