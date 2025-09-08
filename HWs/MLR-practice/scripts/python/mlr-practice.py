@@ -207,8 +207,8 @@ alpha = 1 - conf_int
 conf_int_90 = model.conf_int(alpha=alpha)
 conf_int_90.columns = ["Límite inferior", "Límite superior"]
 
-beta2_ci = conf_int_90.loc[["ingreso"]]
-print("Intervalo de confianza al 90% para β2 (Ingreso):")
+beta2_ci = conf_int_90.loc[["menores"]]
+print("Intervalo de confianza al 90% para β2 (Menores):")
 print(
     f"[{beta2_ci['Límite inferior'].values[0]:.4f}, {beta2_ci['Límite superior'].values[0]:.4f}]"
 )
@@ -221,7 +221,7 @@ save_latex_table(
         "Límite inferior": "Límite inferior",
         "Límite superior": "Límite superior",
     },
-    caption="Intervalo de confianza del 90\% para el coeficiente $\\beta_2$ (Ingreso).",
+    caption="Intervalo de confianza del 90\% para el coeficiente $\\beta_2$ (Menores).",
     label="tab:ci_beta2",
 )
 
