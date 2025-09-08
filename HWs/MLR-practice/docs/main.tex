@@ -73,25 +73,95 @@ Realice el ajuste del modelo (1). \\
 \section{Pregunta 2}
 Encuentre una estimación de la varianza de los errores $S^2 = e'e/n$, la matriz de covarianzas del vector de parámetros y los errores estándar de los coeficientes individuales. \\
 
-\textcolor{blue}{RESPUESTA: }
+\textcolor{blue}{
+    \textbf{Estimación de la varianza del error:}
+    Sea $\hat{\mathbf e}=\mathbf y-\mathbf X\hat{\boldsymbol\beta}$. La varianza de los errores se estima como
+    \[
+        S^2 = \frac{\hat{\mathbf e}'\hat{\mathbf e}}{n}
+        \quad \text{(} \widehat{\sigma}^2 = \tfrac{\hat{\mathbf e}'\hat{\mathbf e}}{n-p} \text{ con } p=4\text{)}.
+    \]
+    Con los datos del ejercicio se obtiene:
+    \input{latex_utils/tables/varianza_error.tex}
+    \textbf{Matriz de covarianzas del vector de parámetros} $\hat{\boldsymbol\beta}$.
+    Por teoría MCO,
+    \[
+        \widehat{\operatorname{Var}}(\hat{\boldsymbol\beta}) = S^2 (\mathbf X'\mathbf X)^{-1}.
+    \]
+    Su estimación numérica es:
+    \input{latex_utils/tables/matriz_covarianzas_parametros.tex}
+    \textbf{Errores estándar de los coeficientes individuales.}
+    Los errores estándar son las raíces cuadradas de la diagonal de $\widehat{\operatorname{Var}}(\hat{\boldsymbol\beta})$. A continuación se reportan junto con los coeficientes:
+    \input{latex_utils/tables/tabla_coeficientes.tex}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 3}
 Construya un intervalo del 90\% de confianza para el coeficiente $\beta_2$. \\
 
-\textcolor{blue}{RESPUESTA: }
+\textcolor{blue}{
+    \textbf{IC del 90\% para $\beta_2$ (Ingreso):}
+    Sea $\hat\beta_2$ el estimador de $\beta_2$ y $\operatorname{EE}(\hat\beta_2)$ su error estándar. El intervalo de confianza bilateral al 90\% está dado por
+    \[
+        \hat\beta_2 \;\pm\; t_{1-\alpha/2,\,n-p}\; \operatorname{EE}(\hat\beta_2),\quad \alpha=0.10,\; n=51,\; p=4 \Rightarrow \text{gl}=n-p=47.
+    \]
+    A partir del ajuste MCO del inciso anterior (ver tabla de coeficientes) tenemos $\hat\beta_2=0.080653$ y $\operatorname{EE}(\hat\beta_2)=0.009299$. Usando $t_{0.95,47}\approx 1.677$ se obtiene el intervalo numérico siguiente:
+    \input{latex_utils/tables/intervalo_confianza_beta2.tex}
+    Para referencia, volvemos a listar los coeficientes estimados y sus errores estándar:
+    \input{latex_utils/tables/reg_multiple_coeficientes.tex}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 4}
 Calcule el gasto en educación pública que se esperaría a un nivel “promedio” de los regresores, esto es $(1,\bar{x})$. \\
 
-\textcolor{blue}{RESPUESTA: }
+\textcolor{blue}{
+    \textbf{Predicción en el punto promedio $(1,\bar x)$:}
+    Dado que la predicción en un punto específico $\mathbf{x}_0 = (1,\bar x_1, \bar x_2, \bar x_3)'$ viene dada por:
+    \[
+        \hat y(\mathbf{x}_0) = \mathbf{x}_0' \hat{\boldsymbol\beta} 
+        = \hat\beta_0 + \hat\beta_1\,\bar x_1 + \hat\beta_2\,\bar x_2 + \hat\beta_3\,\bar x_3.
+    \]
+    Los promedios muestrales de los regresores son:
+    \input{latex_utils/tables/tabla_prediccion_media.tex}
+    Sustituyendo estos valores en la ecuación estimada se obtiene el gasto en educación pública esperado en el nivel promedio de los regresores:
+    \[
+        \hat y(\bar x) = 196.31.
+    \]
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 5}
 Realice la prueba de significancia del modelo de regresión (1), indicando claramente la hipótesis, estadístico de prueba, región de rechazo y conclusión. \\
 
-\textcolor{blue}{RESPUESTA: }
+\textcolor{blue}{
+    \textbf{Prueba de significancia global del modelo (Prueba F).}
+    \textbf{Hipótesis:}\\[-2mm]
+    \[
+        H_0: \beta_1=\beta_2=\beta_3=0 \qquad \text{vs.} \qquad H_1: \text{al menos uno } \beta_j\neq 0.
+    \]
+    \textbf{Estadístico de prueba:} bajo $H_0$, el estadístico
+    \[
+        F\_{obs} 
+        = \frac{\text{SSR}/k}{\text{SSE}/(n-p)}
+        = \frac{(R^2/k)}{((1-R^2)/(n-p))}
+        \;\sim\; F\_{k,\,n-p},
+    \]
+    donde $k=3$ es el número de regresores, $p=k+1=4$ el número de parámetros (incluye intercepto) y $n=51$ el tamaño de muestra. Con los datos del ajuste se obtuvo:
+    \[
+        F\_{obs}=34.8105, \quad (\mathrm{gl}_1,\mathrm{gl}_2)=(3,47).
+    \]
+    \textbf{Región de rechazo (nivel $\alpha=0.05$): } Rechazar $H_0$ si 
+    \[
+        F\_{obs} > F\_{0.95;\,3,47} = 2.8024.
+    \]
+    \textbf{Decisión por valor crítico:} como $34.8105 > 2.8024$, \textbf{se rechaza} $H_0$.\\
+    \textbf{Decisión por $p$-valor:} $p$-valor $= 5.34\times 10^{-12} < 0.05$ \;$\Rightarrow$\; \textbf{se rechaza} $H_0$.\\
+    \textbf{Conclusión:} el modelo de regresión es \emph{globalmente significativo}; al menos una de las variables explicativas (Ingreso, Menores, Urbano) contribuye de forma estadísticamente significativa a explicar el gasto en educación.\\
+    \vspace{0.5cm}
+    \noindent\textbf{Resumen numérico:}
+    \input{latex_utils/tables/prueba_F_modelo.tex}
+    \input{latex_utils/tables/hipotesis_y_conclusion.tex}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Link al repositorio con código fuente}
 \url{https://github.com/enriquegomeztagle/MCD-Econometria/tree/main/HWs/MLR-practice}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
-
