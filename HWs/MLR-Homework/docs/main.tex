@@ -69,24 +69,119 @@
 
     \indent {c)} ¿Qué conclusión importante obtiene de este ejercicio? \\  
 
-\textcolor{blue}{
-        \textbf{Solución:}  
-        Con los datos \((Y, X_2, X_3)\):  
-        \[
-        Y=\{1,3,8\},\quad X_2=\{1,2,3\},\quad X_3=\{2,1,-3\}.
-        \]
-        \textbf{Estimaciones:}
-        \begin{align*}
-        (1)\;& Y_i=\alpha_1+\alpha_2X_{2i}+u_{1i}, & \hat{\alpha}_1=-3,\; \hat{\alpha}_2=3.5. \\
-        (2)\;& Y_i=\lambda_1+\lambda_3X_{3i}+u_{2i}, & \hat{\lambda}_1=4,\; \hat{\lambda}_3=-1.3571. \\
-        (3)\;& Y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+u_i, & \hat{\beta}_1=2,\; \hat{\beta}_2=1,\; \hat{\beta}_3=-1.
-        \end{align*}
-        \textbf{a)} No, \(\alpha_2 \neq \beta_2\). El estimador \(\alpha_2\) en la regresión simple está sesgado porque omite \(X_3\), correlacionado con \(X_2\). Se cumple la fórmula del sesgo por variable omitida.\\
-        \textbf{b)} Tampoco, \(\lambda_3 \neq \beta_3\). Análogamente, al omitir \(X_2\), el coeficiente de \(X_3\) se ve afectado por su correlación con \(X_2\).\\
-        \textbf{c)} Este ejercicio nos permite entender el \textit{sesgo por variable omitida}. Los coeficientes en regresiones simples (\(\alpha_2,\lambda_3\)) difieren de los verdaderos efectos parciales (\(\beta_2,\beta_3\)) que sólo se identifican en la regresión múltiple.
+\textcolor{blue}{ 
+    Con los datos \((Y, X_2, X_3)\):  
+    \[
+    Y=\{1,3,8\},\quad X_2=\{1,2,3\},\quad X_3=\{2,1,-3\}.
+    \]
+    \textbf{Estimaciones:}
+    \begin{align*}
+    (1)\;& Y_i=\alpha_1+\alpha_2X_{2i}+u_{1i}, & \hat{\alpha}_1=-3,\; \hat{\alpha}_2=3.5. \\
+    (2)\;& Y_i=\lambda_1+\lambda_3X_{3i}+u_{2i}, & \hat{\lambda}_1=4,\; \hat{\lambda}_3=-1.3571. \\
+    (3)\;& Y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+u_i, & \hat{\beta}_1=2,\; \hat{\beta}_2=1,\; \hat{\beta}_3=-1.
+    \end{align*}
+    \textbf{a)} No, \(\alpha_2 \neq \beta_2\). El estimador \(\alpha_2\) en la regresión simple está sesgado porque omite \(X_3\), correlacionado con \(X_2\). Se cumple la fórmula del sesgo por variable omitida.\\
+    \textbf{b)} Tampoco, \(\lambda_3 \neq \beta_3\). Análogamente, al omitir \(X_2\), el coeficiente de \(X_3\) se ve afectado por su correlación con \(X_2\).\\
+    \textbf{c)} Este ejercicio nos permite entender el \textit{sesgo por variable omitida}. Los coeficientes en regresiones simples (\(\alpha_2,\lambda_3\)) difieren de los verdaderos efectos parciales (\(\beta_2,\beta_3\)) que sólo se identifican en la regresión múltiple.
     }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Pregunta 2}
+\paragraph*{a)} La demanda de rosas. En la Tabla~\ref{tab:demanda_rosas} se presentan datos trimestrales (1971-III a 1975-II) sobre estas variables:\\
+$Y$ = cantidad de rosas vendidas (docenas);\\
+$X_2$ = precio promedio al mayoreo de rosas (\$/docena);\\
+$X_3$ = precio promedio al mayoreo de claveles (\$/docena);\\
+$X_4$ = ingreso familiar disponible promedio semanal (\$/semana);\\
+$X_5$ = variable de tendencia que toma valores de (1,2,\dots), durante el periodo 1971-III a 1975-II en el área metropolitana de Detroit.\\
+
+\begin{table}[H]
+    \centering
+    \captionsetup{labelfont={color=black}, textfont={color=black}}
+    \begin{tabular}{lccccc}
+        \hline
+        \textbf{Año-trim} & $Y$ & $X_2$ & $X_3$ & $X_4$ & $X_5$ \\
+        \hline
+        1971-III & 11484 & 2.26 & 3.49 & 158.11 & 1 \\
+        1971-IV  &  9348 & 2.54 & 2.85 & 173.36 & 2 \\
+        1972-I   &  8429 & 3.07 & 4.06 & 165.26 & 3 \\
+        1972-II  & 10079 & 2.91 & 3.64 & 172.92 & 4 \\
+        1972-III &  9240 & 2.73 & 3.21 & 178.46 & 5 \\
+        1972-IV  &  8862 & 2.77 & 3.66 & 198.62 & 6 \\
+        1973-I   &  6216 & 3.59 & 3.76 & 186.28 & 7 \\
+        1973-II  &  8253 & 3.23 & 3.49 & 188.98 & 8 \\
+        1973-III &  8038 & 2.60 & 3.13 & 180.49 & 9 \\
+        1973-IV  &  7476 & 2.89 & 3.20 & 183.33 & 10 \\
+        1974-I   &  5911 & 3.77 & 3.65 & 181.87 & 11 \\
+        1974-II  &  7950 & 3.64 & 3.60 & 185.00 & 12 \\
+        1974-III &  6134 & 2.82 & 2.94 & 184.00 & 13 \\
+        1974-IV  &  5868 & 2.96 & 3.12 & 188.20 & 14 \\
+        1975-I   &  3160 & 4.24 & 3.58 & 175.67 & 15 \\
+        1975-II  &  5872 & 3.69 & 3.53 & 188.00 & 16 \\
+        \hline
+    \end{tabular}
+    \caption{Demanda trimestral de rosas en Detroit (1971-III a 1975-II).}
+    \label{tab:demanda_rosas}
+\end{table}
+
+Se le pide considderar las siguientes funciones de demanda:
+\begin{align*}
+    Y_t &= \alpha_1 + \alpha_2 X_{2t} + \alpha_3 X_{3t} + \alpha_4 X_{4t} + \alpha_5 X_{5t} + u_t, \\
+    \ln Y_t &= \beta_1 + \beta_2 \ln X_{2t} + \beta_3 \ln X_{3t} + \beta_4 \ln X_{4t} + \beta_5 X_{5t} + u_t.
+\end{align*}
+
+\begin{enumerate}
+    \item[\textbf{(a)}] Estime los parámetros del modelo lineal e interprete los resultados.\\
+    \textcolor{blue}{
+        Modelo lineal estimado por MCO (con intercepto):
+        \[
+        \widehat{Y}_t= \hat{\alpha}_1 + \hat{\alpha}_2 X_{2t}+\hat{\alpha}_3 X_{3t}+\hat{\alpha}_4 X_{4t}+\hat{\alpha}_5 X_{5t},
+        \]
+        con $ \hat{\alpha}_1=10820.0,\quad \hat{\alpha}_2=-2227.70\ (t=-2.42,\ p=0.034),\quad \hat{\alpha}_3=1251.14\ (t=1.08,\ p=0.303),$
+        \[
+        \hat{\alpha}_4=6.283\ (t=0.21,\ p=0.841),\quad \hat{\alpha}_5=-197.40\ (t=-1.94,\ p=0.078).
+        \]
+        Ajuste e inferencia: \(R^2=0.835\), \(R^2_{adj}=0.775\), \(F=13.89\) (\(p=0.000281\)). Durbin–Watson \(=2.33\).\\
+        El precio propio de las rosas (\(X_2\)) tiene signo negativo y es significativo al 5\%; el precio de los claveles (\(X_3\)) es positivo pero no significativo; el ingreso (\(X_4\)) es positivo pero no significativo; la tendencia (\(X_5\)) es negativa y significativa (10\%). El número de condición elevado (\(~4.48\times10^3\)) podría indicar \textit{multicolinealidad} potencial.
+    }
+    \item[\textbf{(b)}] Estime los parámetros del modelo log-lineal e interprete los resultados.\\
+    \textcolor{blue}{
+        Modelo log-lineal estimado por MCO:
+        \[
+        \widehat{\ln Y}_t= \hat{\beta}_1 + \hat{\beta}_2 \ln X_{2t}+\hat{\beta}_3 \ln X_{3t}+\hat{\beta}_4 \ln X_{4t}+\hat{\beta}_5 X_{5t},
+        \]
+        con $\hat{\beta}_1=3.572,\quad \hat{\beta}_2=-1.1707\ (t=-2.40,\ p=0.035),\quad \hat{\beta}_3=0.7379\ (t=1.13,\ p=0.282), $
+        \[
+        \hat{\beta}_4=1.1532\ (t=1.28,\ p=0.227),\quad \hat{\beta}_5=-0.0301\ (t=-1.83,\ p=0.094).
+        \]
+        Ajuste e inferencia: \(R^2=0.799\), \(R^2_{adj}=0.726\), \(F=10.92\) (\(p=0.000798\)). Durbin–Watson \(=2.05\).\\
+        Aquí, los coeficientes \(\beta_2,\beta_3,\beta_4\) son elasticidades: la demanda es elástica al precio propio (\(-1.17\), significativo al 5\%), presenta elasticidad cruzada positiva frente al precio de claveles (0.74, no significativa) y es normal (elasticidad ingreso 1.15, no significativa). La tendencia es levemente decreciente (10\%).
+        }
+
+    \item[\textbf{(c)}] $\beta_2$, $\beta_3$ y $\beta_4$ dan, respectivamente, las elasticidades de la demanda respecto al precio propio, precio cruzado e ingreso. ¿Cuáles son, a priori, los signos esperados de estas elasticidades? ¿Concuerdan estos resultados con las expectativas a priori?\\
+    \textcolor{blue}{
+        Expectativas a priori: \(\beta_2<0\) (ley de la demanda), \(\beta_3>0\) si claveles son sustitutos, y \(\beta_4>0\) si las rosas son normal.\\
+        \textit{Resultados}: \(\hat{\beta}_2=-1.1707<0\), \(\hat{\beta}_3=0.7379>0\), \(\hat{\beta}_4=1.1532>0\). Los signos \emph{concuerdan} con la teoría; sólo el efecto de precio propio es estadísticamente significativo al 5\%.
+        }
+
+    \item[\textbf{(d)}] ¿Cómo calcularía las elasticidades precio propio, precio cruzado e ingreso en el modelo lineal?\\
+    \textcolor{blue}{
+        Calculamos las elasticidades en un punto de evaluacióncomo
+        \[
+        \varepsilon_{Y,X_j}= \frac{\partial Y}{\partial X_j}\,\frac{\bar X_j}{\bar Y}=\hat{\alpha}_j\,\frac{\bar X_j}{\bar Y},\quad j\in\{2,3,4\}.
+        \]
+        Evaluadas en las medias, se obtienen:
+        \[
+        \varepsilon_{\text{precio propio}}=-0.9053,\quad \varepsilon_{\text{precio cruzado}}=0.5616,\quad \varepsilon_{\text{ingreso}}=0.1484.
+        \]
+        Para el modelo log-lineal, las elasticidades son constantes e iguales a los coeficientes: \(\varepsilon_{p}=-1.1707\), \(\varepsilon_{pc}=0.7379\), \(\varepsilon_{y}=1.1532\).
+    }
+    
+    \item[\textbf{(e)}] Con base en su análisis, ¿cuál modelo, si existe, escogería y por qué?\\
+    \textcolor{blue}{
+        Comparación: el modelo lineal exhibe mayor \(R^2_{adj}=0.775\) que el log-lineal (0.726), pero el log-lineal se ve favorecido por los criterios de información (AIC = \(-9.08\), BIC = \(-5.22\) frente a 269.48 y 273.34). Además, el log-lineal entrega elasticidades directamente interpretables y suele capturar mejor relaciones proporcionales.\\
+        Con base en AIC/BIC y en la interpretación económica (elasticidades), \textbf{elegimos el modelo log-lineal}. No obstante, la muestra es pequeña (\(n=16\)) y hay indicios de multicolinealidad; es recomendable revisar los resultados con precaución.
+    }
+\end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 3}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
