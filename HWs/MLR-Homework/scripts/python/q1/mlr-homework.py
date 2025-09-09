@@ -12,10 +12,10 @@ import os
 from pathlib import Path
 
 # %%
-DATA_DIR = Path("../../data/")
+DATA_DIR = Path("../../../data/")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-LATEX_OUT = Path("../../docs/latex_utils/tables")
+LATEX_OUT = Path("../../../docs/latex_utils/tables")
 LATEX_OUT.mkdir(parents=True, exist_ok=True)
 
 
