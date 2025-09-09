@@ -36,9 +36,55 @@
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 1}
+\paragraph*{a)} Considere los datos de la tabla \ref{tab:datos_pregunta1}.
+\begin{table}[H]
+    \centering
+    \captionsetup{labelfont={color=black}, textfont={color=black}}
+    \begin{tabular}{ccc}
+        Y & X2 & X3 \\
+        \hline
+        1 & 1 & 2 \\
+        3 & 2 & 1 \\
+        8 & 3 & -3 \\
+        \hline
+    \end{tabular}
+    \caption{Datos de la pregunta 1}
+    \label{tab:datos_pregunta1}
+\end{table}
+
+\paragraph*{b)} Con base en estos datos, estime las siguientes regresiones:
+    \[
+        Y_i=\alpha_1+\alpha_2X_{2i}+u_{1i},
+    \]
+    \[
+        Y_i=\lambda_1+\lambda_3X_{3i}+u_{2i},
+    \]
+    \[
+        Y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+u_i,
+    \]
+
+    \indent {a)} ¿Es $\alpha_2 = \beta_2$? ¿Por qué? \\
+
+    \indent {b)} ¿Es $\lambda_3 = \beta_3$? ¿Por qué? \\
+
+    \indent {c)} ¿Qué conclusión importante obtiene de este ejercicio? \\  
+
 \textcolor{blue}{
-    
-}
+        \textbf{Solución:}  
+        Con los datos \((Y, X_2, X_3)\):  
+        \[
+        Y=\{1,3,8\},\quad X_2=\{1,2,3\},\quad X_3=\{2,1,-3\}.
+        \]
+        \textbf{Estimaciones:}
+        \begin{align*}
+        (1)\;& Y_i=\alpha_1+\alpha_2X_{2i}+u_{1i}, & \hat{\alpha}_1=-3,\; \hat{\alpha}_2=3.5. \\
+        (2)\;& Y_i=\lambda_1+\lambda_3X_{3i}+u_{2i}, & \hat{\lambda}_1=4,\; \hat{\lambda}_3=-1.3571. \\
+        (3)\;& Y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+u_i, & \hat{\beta}_1=2,\; \hat{\beta}_2=1,\; \hat{\beta}_3=-1.
+        \end{align*}
+        \textbf{a)} No, \(\alpha_2 \neq \beta_2\). El estimador \(\alpha_2\) en la regresión simple está sesgado porque omite \(X_3\), correlacionado con \(X_2\). Se cumple la fórmula del sesgo por variable omitida.\\
+        \textbf{b)} Tampoco, \(\lambda_3 \neq \beta_3\). Análogamente, al omitir \(X_2\), el coeficiente de \(X_3\) se ve afectado por su correlación con \(X_2\).\\
+        \textbf{c)} Este ejercicio nos permite entender el \textit{sesgo por variable omitida}. Los coeficientes en regresiones simples (\(\alpha_2,\lambda_3\)) difieren de los verdaderos efectos parciales (\(\beta_2,\beta_3\)) que sólo se identifican en la regresión múltiple.
+    }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 2}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
