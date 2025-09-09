@@ -179,7 +179,7 @@ Se le pide considderar las siguientes funciones de demanda:
     \item[\textbf{(e)}] Con base en su análisis, ¿cuál modelo, si existe, escogería y por qué?\\
     \textcolor{blue}{
         Comparación: el modelo lineal exhibe mayor \(R^2_{adj}=0.775\) que el log-lineal (0.726), pero el log-lineal se ve favorecido por los criterios de información (AIC = \(-9.08\), BIC = \(-5.22\) frente a 269.48 y 273.34). Además, el log-lineal entrega elasticidades directamente interpretables y suele capturar mejor relaciones proporcionales.\\
-        Con base en AIC/BIC y en la interpretación económica (elasticidades), \textbf{elegimos el modelo log-lineal}. No obstante, la muestra es pequeña (\(n=16\)) y hay indicios de multicolinealidad; es recomendable revisar los resultados con precaución.
+        Con base en AIC/BIC de OLS bajo normalidad y en la interpretación económica (elasticidades), \textbf{elegimos el modelo log-lineal}. No obstante, la muestra es pequeña (\(n=16\)) y hay indicios de multicolinealidad; es recomendable revisar los resultados con precaución.
     }
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -242,7 +242,7 @@ participan 100 000 soldados o más, y es igual a cero cuando el número de solda
         $\hat{\beta}_1=19.7122\ (3.3509),\quad \hat{\beta}_2=0.0164\ (0.0065),\quad \hat{\beta}_3=-0.2261\ (0.4556),\\
         \hat{\beta}_4=1.3967\ (0.2608),\quad \hat{\beta}_5=5.3564\ (3.0201),$ \\
         \\
-        Métricas de ajuste: \(R^2=0.9784\), \(R^2_{aj}=0.9726\), \(F=169.5\) (\(p=2.73\times10^{-12}\)). Durbin–Watson = 1.169.\\
+        Métricas de ajuste: \(R^2=0.9784\), \(R^2_{adj}=0.9726\), \(F=169.5\) (\(p=2.73\times10^{-12}\)). Durbin–Watson = 1.169.\\
         \textit{Ecuación en niveles}: \(\widehat{Y}_t=19.7122+0.0164\,X_{2t}-0.2261\,X_{3t}+1.3967\,X_{4t}+5.3564\,X_{5t}.\)
     }
 
@@ -256,7 +256,7 @@ participan 100 000 soldados o más, y es igual a cero cuando el número de solda
         \item Un aumento de \$1 mil millón en ventas aeroespaciales se asocia con \(1.397\) mil millones adicionales en defensa.
         \item La presencia de un conflicto \(X_5=1\) eleva el gasto en \(\approx 5.36\) mil millones.
         \end{itemize}
-        \emph{Diagnóstico}: el número de condición (\(\approx 5.53\times10^3\)) y VIF altos obtenidos (p.ej. \(\text{VIF}_{X_2}\approx 80\), \(\text{VIF}_{X_4}\approx 62\)) sugieren  una \textit{multicolinealidad} severa entre regresores macro, lo cual puede inflar errores estándar y volver inestables algunos signos (como \(X_3\)). Durbin-Watson \(=1.17\) sugiere posible autocorrelación positiva de primer orden en residuos (series anuales).
+        \emph{Diagnóstico}: el número de condición (\(\approx 5.53\times10^3\)) y VIF (sin intercepto) altos obtenidos (p.ej. \(\text{VIF}_{X_2}\approx 80\), \(\text{VIF}_{X_4}\approx 62\)) sugieren  una \textit{multicolinealidad} severa entre regresores macro, lo cual puede inflar errores estándar y volver inestables algunos signos (como \(X_3\)). Durbin-Watson \(=1.17\) sugiere posible autocorrelación positiva de primer orden en residuos (series anuales).
     }
 
     \item[\textbf{(c)}] ¿Qué otra(s) variable(s) incluiría en el modelo y por qué?\\
@@ -353,7 +353,7 @@ de Estados Unidos de 1947 a 2000.
     \widehat{C}_t=\hat\gamma_1+\hat\gamma_2\,Yd_t+\hat\gamma_3\,Riqueza_t+\hat\gamma_4\,Tasa_t,
     \]
     con $ \hat\gamma_1=-3.0103\,(15.014),\quad \hat\gamma_2=0.7344\,(0.0160),\quad \hat\gamma_3=0.0354\,(0.0030),\quad \hat\gamma_4=-5.7072\,(2.679).$ \\
-    Métricas de ajuste: \(R^2=0.9992\), \(R^2_{aj}=0.9991\), \(F=1.975\times10^{4}\) (\(p=8.05\times10^{-77}\)), \(n=54\). Durbin–Watson = 1.313.\\
+    Métricas de ajuste: \(R^2=0.9992\), \(R^2_{adj}=0.9991\), \(F=1.975\times10^{4}\) (\(p=8.05\times10^{-77}\)), \(n=54\). Durbin–Watson = 1.313.\\
     \textit{Ecuación: \(\widehat{C}_t=-3.010+0.7344\,Yd_t+0.0354\,Riqueza_t-5.7072\,Tasa_t\).}
     }
     \item[\textbf{(b)}] ¿Qué indican los coeficientes estimados sobre las relaciones entre las variables y el gasto de consumo?\\
@@ -367,7 +367,7 @@ de Estados Unidos de 1947 a 2000.
         \item Efecto de la tasa real: \(\partial C/\partial r=\hat\gamma_4=-5.7072\). Tasas más altas reducen el consumo (sustitución intertemporal); el coeficiente es significativo al 5\%.
         \end{itemize}
         \emph{Magnitudes relativas (betas estandarizados)}: ingreso \(0.802\), riqueza \(0.209\), tasa \(-0.011\): el ingreso explica la mayor parte de la variación contemporánea del consumo, seguido por la riqueza; la tasa tiene efecto pequeño pero de signo teórico.
-        \emph{Multicolinealidad}: \(\text{VIF}_{Yd}\approx 65.9\), \(\text{VIF}_{Riqueza}\approx 65.8\), \(\text{VIF}_{Tasa}\approx 1.56\) y un número de condición \(\approx 4.48\times10^{4}\) sugieren fuerte colinealidad entre ingreso y riqueza; esto puede inflar errores estándar y volver sensibles las estimaciones a la especificación. Para robustez, puede considerarse trabajar en logaritmos/tasas de crecimiento, usar componentes permanentes o rezagos.
+        \emph{Multicolinealidad - VIF (sin intercepto) }: \(\text{VIF}_{Yd}\approx 65.9\), \(\text{VIF}_{Riqueza}\approx 65.8\), \(\text{VIF}_{Tasa}\approx 1.56\) y un número de condición \(\approx 4.48\times10^{4}\) sugieren fuerte colinealidad entre ingreso y riqueza; esto puede inflar errores estándar y volver sensibles las estimaciones a la especificación. Para robustez, puede considerarse trabajar en logaritmos/tasas de crecimiento, usar componentes permanentes o rezagos.
     }
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
