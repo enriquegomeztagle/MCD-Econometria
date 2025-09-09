@@ -1,4 +1,4 @@
-mu\documentclass[10pt]{article}
+\documentclass[10pt]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
@@ -348,12 +348,26 @@ de Estados Unidos de 1947 a 2000.
     \item[\textbf{(a)}] Con los datos de la tabla, estime la función de consumo lineal usando los datos de ingreso, riqueza y tasa
     de interés. ¿Cuál es la ecuación ajustada?\\
     \textcolor{blue}{
-            RESPUESTA
+    Modelo estimado por MCO (errores estándar entre paréntesis):
+    \[
+    \widehat{C}_t=\hat\gamma_1+\hat\gamma_2\,Yd_t+\hat\gamma_3\,Riqueza_t+\hat\gamma_4\,Tasa_t,
+    \]
+    con $ \hat\gamma_1=-3.0103\,(15.014),\quad \hat\gamma_2=0.7344\,(0.0160),\quad \hat\gamma_3=0.0354\,(0.0030),\quad \hat\gamma_4=-5.7072\,(2.679).$ \\
+    Métricas de ajuste: \(R^2=0.9992\), \(R^2_{aj}=0.9991\), \(F=1.975\times10^{4}\) (\(p=8.05\times10^{-77}\)), \(n=54\). Durbin–Watson = 1.313.\\
+    \textit{Ecuación: \(\widehat{C}_t=-3.010+0.7344\,Yd_t+0.0354\,Riqueza_t-5.7072\,Tasa_t\).}
     }
-
     \item[\textbf{(b)}] ¿Qué indican los coeficientes estimados sobre las relaciones entre las variables y el gasto de consumo?\\
-    \textcolor{blue}{
-            RESPUESTA
+    \textcolor{blue}{ 
+        \emph{Signos esperados vs. estimados}:  
+        \(\hat\gamma_2>0\) (cumple), \(\hat\gamma_3>0\) (cumple) y \(\hat\gamma_4<0\) (cumple).\\
+        \emph{Interpretación marginal}:  
+        \begin{itemize}
+        \item Propensión marginal a consumir del ingreso disponible: \(\partial C/\partial Yd=\hat\gamma_2=0.7344\). Un incremento de 1 unidad en \(Yd\) aumenta el consumo en 0.734 unidades, ceteris paribus.
+        \item Efecto riqueza: \(\partial C/\partial W=\hat\gamma_3=0.0354\). El consumo crece con la riqueza, aunque el impacto unitario es menor que el del ingreso.
+        \item Efecto de la tasa real: \(\partial C/\partial r=\hat\gamma_4=-5.7072\). Tasas más altas reducen el consumo (sustitución intertemporal); el coeficiente es significativo al 5\%.
+        \end{itemize}
+        \emph{Magnitudes relativas (betas estandarizados)}: ingreso \(0.802\), riqueza \(0.209\), tasa \(-0.011\): el ingreso explica la mayor parte de la variación contemporánea del consumo, seguido por la riqueza; la tasa tiene efecto pequeño pero de signo teórico.
+        \emph{Multicolinealidad}: \(\text{VIF}_{Yd}\approx 65.9\), \(\text{VIF}_{Riqueza}\approx 65.8\), \(\text{VIF}_{Tasa}\approx 1.56\) y un número de condición \(\approx 4.48\times10^{4}\) sugieren fuerte colinealidad entre ingreso y riqueza; esto puede inflar errores estándar y volver sensibles las estimaciones a la especificación. Para robustez, puede considerarse trabajar en logaritmos/tasas de crecimiento, usar componentes permanentes o rezagos.
     }
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
