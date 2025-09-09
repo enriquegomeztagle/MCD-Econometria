@@ -184,6 +184,93 @@ Se le pide considderar las siguientes funciones de demanda:
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 3}
+
+\paragraph*{a)} Desembolsos del presupuesto de defensa de Estados Unidos, 1962--1981. Para explicar el presupuesto de defensa, considere el siguiente modelo:
+\[
+Y_t = \beta_1 + \beta_2 X_{2t} + \beta_3 X_{3t} + \beta_4 X_{4t} + \beta_5 X_{5t} + u_t.
+\]
+Donde: \\
+$Y_t$ = desembolsos del presupuesto de defensa durante el año $t$, \$ miles de millones.\\
+$X_{2t}$ = PNB durante el año $t$, \$ miles de millones.\\
+$X_{3t}$ = ventas militares de Estados Unidos/ayuda en el año $t$, \$ miles de millones.\\
+$X_{4t}$ = ventas de la industria aeroespacial, \$ miles de millones.\\
+$X_{5t}$ = conflictos militares que implican a más de 100\,000 soldados. Esta variable adquiere el valor de 1 cuando
+participan 100 000 soldados o más, y es igual a cero cuando el número de soldados no llega a 100 000. 
+
+\begin{table}[H]
+    \centering
+    \captionsetup{labelfont={color=black}, textfont={color=black}}
+    \begin{tabular}{lccccc}
+        \hline
+        \textbf{Año} & $Y$ & $X_2$ & $X_3$ & $X_4$ & $X_5$ \\
+        \hline
+        1962 &  51.1 &  560.3 &  0.6  & 16.0 & 0 \\
+        1963 &  52.3 &  590.5 &  0.9  & 16.4 & 0 \\
+        1964 &  53.6 &  632.4 &  1.1  & 16.7 & 0 \\
+        1965 &  49.6 &  684.9 &  1.4  & 17.0 & 1 \\
+        1966 &  56.8 &  749.9 &  1.6  & 20.2 & 1 \\
+        1967 &  70.1 &  793.0 &  1.0  & 23.1 & 1 \\
+        1968 &  80.5 &  865.0 &  0.8  & 25.6 & 1 \\
+        1969 &  81.2 &  931.4 &  1.5  & 24.6 & 1 \\
+        1970 &  80.3 &  992.7 &  1.0  & 24.8 & 1 \\
+        1971 &  77.7 & 1077.6 &  1.5  & 27.1 & 1 \\
+        1972 &  78.3 & 1185.9 &  2.95 & 21.5 & 1 \\
+        1973 &  74.5 & 1326.4 &  4.8  & 24.3 & 0 \\
+        1974 &  77.8 & 1434.2 & 10.3  & 26.8 & 0 \\
+        1975 &  85.6 & 1549.2 & 16.0  & 29.5 & 0 \\
+        1976 &  89.4 & 1748.0 & 14.7  & 30.4 & 0 \\
+        1977 &  97.5 & 1918.3 &  8.3  & 33.3 & 0 \\
+        1978 & 105.2 & 2163.9 & 11.0  & 38.0 & 0 \\
+        1979 & 117.7 & 2417.8 & 13.0  & 46.2 & 0 \\
+        1980 & 135.9 & 2633.1 & 15.3  & 57.6 & 0 \\
+        1981 & 162.1 & 2937.7 & 18.0  & 68.9 & 0 \\
+        \hline
+    \end{tabular}
+    \caption{EE.\,UU.: Presupuesto de defensa y variables explicativas (1962--1981).}
+    \label{tab:defensa_usa}
+\end{table}
+
+\paragraph*{b)} Con base en la Tabla~\ref{tab:defensa_usa}, responda:
+\begin{enumerate}
+    \item[\textbf{(a)}] Estime los parámetros del modelo lineal y sus errores estándar, y obtenga $R^2$ y $R^2$ ajustada.\\
+    \textcolor{blue}{
+        El modelo estimado por MCO (entre paréntesis se reportan los errores estándar) es
+        \[
+        \widehat{Y}_t=\hat{\beta}_1+\hat{\beta}_2X_{2t}+\hat{\beta}_3X_{3t}+\hat{\beta}_4X_{4t}+\hat{\beta}_5X_{5t},
+        \]
+        con
+        $\hat{\beta}_1=19.7122\ (3.3509),\quad \hat{\beta}_2=0.0164\ (0.0065),\quad \hat{\beta}_3=-0.2261\ (0.4556),\\
+        \hat{\beta}_4=1.3967\ (0.2608),\quad \hat{\beta}_5=5.3564\ (3.0201),$ \\
+        \\
+        Métricas de ajuste: \(R^2=0.9784\), \(R^2_{aj}=0.9726\), \(F=169.5\) (\(p=2.73\times10^{-12}\)). Durbin–Watson = 1.169.\\
+        \textit{Ecuación en niveles}: \(\widehat{Y}_t=19.7122+0.0164\,X_{2t}-0.2261\,X_{3t}+1.3967\,X_{4t}+5.3564\,X_{5t}.\)
+    }
+
+    \item[\textbf{(b)}] Comente los resultados, considerando cualquier expectativa \textit{a priori}  que tenga sobre la relación entre $Y$ y las diversas variables $X$.\\
+    \textcolor{blue}{
+        \emph{Signos esperados}: se anticipa efecto positivo de PNB (\(X_2\)), ventas militares/ayuda (\(X_3\)), ventas aeroespaciales (\(X_4\)) y de la dummy de conflicto (\(X_5\)).\\
+        \emph{Resultados}: \(\hat{\beta}_2>0\) y significativo al 5\% (\(t=2.51\)); \(\hat{\beta}_4>0\) y altamente significativo (\(t=5.36\)); \(\hat{\beta}_5>0\) y marginal al 10\% (\(t=1.77\)); \(\hat{\beta}_3<0\) y no significativo. \\
+        En promedio, manteniendo todo lo demás constante:
+        \begin{itemize}
+        \item Un aumento de \$1 mil millones en el PNB se asocia con \(0.016\) mil millones adicionales en defensa.
+        \item Un aumento de \$1 mil millón en ventas aeroespaciales se asocia con \(1.397\) mil millones adicionales en defensa.
+        \item La presencia de un conflicto \(X_5=1\) eleva el gasto en \(\approx 5.36\) mil millones.
+        \end{itemize}
+        \emph{Diagnóstico}: el número de condición (\(\approx 5.53\times10^3\)) y VIF altos obtenidos (p.ej. \(\text{VIF}_{X_2}\approx 80\), \(\text{VIF}_{X_4}\approx 62\)) sugieren  una \textit{multicolinealidad} severa entre regresores macro, lo cual puede inflar errores estándar y volver inestables algunos signos (como \(X_3\)). Durbin-Watson \(=1.17\) sugiere posible autocorrelación positiva de primer orden en residuos (series anuales).
+    }
+
+    \item[\textbf{(c)}] ¿Qué otra(s) variable(s) incluiría en el modelo y por qué?\\
+    \textcolor{blue}{
+        Incluiría variables para (i) trabajar en términos reales y (ii) capturar dinámica/geopolítica:
+        \begin{itemize}
+        \item Deflactor del gasto de defensa o CPI (para expresar todas las series en términos reales) y una tendencia temporal.
+        \item Petróleo y/o choques energéticos 1973–79; tasa de inflación o interés (política macro).
+        \item Gasto/PNB rezagado o \(Y_{t-1}\) (inercia presupuestal) y rezagos de \(X_2, X_4\).
+        \item Dummies geopolíticas (p.ej., Vietnam 1965–73) o un indicador de tensiones internacionales adicional a \(X_5\).
+        \end{itemize}
+        Con estas variables, se podrían mitigar sesgos por omisión y reducir la multicolinealidad al separar tendencias comunes entre \(X_2\) y \(X_4\).
+    }
+\end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 4}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
