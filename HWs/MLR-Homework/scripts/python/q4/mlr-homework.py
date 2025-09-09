@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
+from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 # %%
 raw = [
@@ -71,6 +72,8 @@ df.head()
 # %%
 X = sm.add_constant(df[["Yd", "Riqueza", "Tasa"]])
 ols = sm.OLS(df["C"], X).fit()
+
+print("=== Resumen statsmodels ===")
 print(ols.summary())
 
 # %%
@@ -80,50 +83,45 @@ b0, b1, b2, b3 = (
     ols.params["Riqueza"],
     ols.params["Tasa"],
 )
-eq = f"C_hat_t = {b0:.3f} + {b1:.4f}*Yd_t + {b2:.4f}*Riqueza_t + {b3:.4f}*Tasa_t"
+print("\nEcuación ajustada:")
+print(f"Ĉ_t = {b0:.3f} + {b1:.4f}·Yd_t + {b2:.4f}·Riqueza_t + {b3:.4f}·Tasa_t")
 
-print("\n=== Ecuación ajustada (lineal) ===")
-print(eq)
 print(
-    f"R2 = {ols.rsquared:.6f} | R2_aj = {ols.rsquared_adj:.6f} | n = {int(ols.nobs)}\n"
+    f"R² = {ols.rsquared:.4f}, R² ajustado = {ols.rsquared_adj:.4f}, n = {int(ols.nobs)}"
 )
 
 # %%
-coefs = (
-    pd.concat(
-        [
-            ols.params.rename("coef"),
-            ols.bse.rename("std_err"),
-            ols.tvalues.rename("t"),
-            ols.pvalues.rename("p_value"),
-        ],
-        axis=1,
-    )
-    .reset_index()
-    .rename(columns={"index": "param"})
-)
-print("=== Coeficientes (OLS) ===")
-print(coefs.to_string(index=False))
+esperados = {"Yd": "pos", "Riqueza": "pos", "Tasa": "neg"}
+
+print("\nSignos esperados vs. estimados:")
+for var, signo in esperados.items():
+    est = ols.params[var]
+    cumple = est > 0 if signo == "pos" else est < 0
+    print(f"{var}: coef = {est:.4f}, esperado {signo}, cumple? {cumple}")
 
 # %%
 stdY = df["C"].std()
 stds = df[["Yd", "Riqueza", "Tasa"]].std()
-betas_std = pd.DataFrame(
-    {
-        "variable": ["Yd", "Riqueza", "Tasa"],
-        "beta_estandarizado": [
-            b1 * stds["Yd"] / stdY,
-            b2 * stds["Riqueza"] / stdY,
-            b3 * stds["Tasa"] / stdY,
-        ],
-    }
-)
-print("\n=== Betas estandarizados ===")
-print(betas_std.to_string(index=False))
+betas_std = {
+    "Yd": b1 * stds["Yd"] / stdY,
+    "Riqueza": b2 * stds["Riqueza"] / stdY,
+    "Tasa": b3 * stds["Tasa"] / stdY,
+}
+print("\nBetas estandarizados (para comparar magnitudes):")
+for k, v in betas_std.items():
+    print(f"{k}: {v:.4f}")
 
 # %%
-corr = df[["C", "Yd", "Riqueza", "Tasa"]].corr()
-print("\n=== Matriz de correlaciones ===")
-print(corr.round(4).to_string())
+X_no_const = df[["Yd", "Riqueza", "Tasa"]].astype(float)
+vif_data = pd.DataFrame()
+vif_data["Variable"] = X_no_const.columns
+vif_data["VIF"] = [
+    variance_inflation_factor(X_no_const.values, i) for i in range(X_no_const.shape[1])
+]
+print("\nVIF (multicolinealidad, >10 es preocupante):")
+print(vif_data.round(2))
 
 # %%
+
+
+
