@@ -1,0 +1,286 @@
+\documentclass[10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath, amssymb}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{letterpaper, margin=1in}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{caption}
+\captionsetup{labelfont={color=blue}, textfont={color=blue}}
+\usepackage{tocloft}
+\renewcommand{\cftsecfont}{\color{blue}}
+\renewcommand{\cftsubsecfont}{\color{blue}}
+\renewcommand{\cftsubsubsecfont}{\color{blue}}
+
+\renewcommand{\cftsecpagefont}{\color{blue}}
+\renewcommand{\cftsubsecpagefont}{\color{blue}}
+\renewcommand{\cftsubsubsecpagefont}{\color{blue}}
+\renewcommand{\cfttoctitlefont}{\color{blue}\bfseries}
+
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue]{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Universidad Panamericana \\ Maestría en Ciencia de Datos \\ Econometría \\ \vspace{0.5cm} Actividad RLM}
+\author{Enrique Ulises Báez Gómez Tagle}
+\date{\today}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pregunta 1}
+Tiene la siguiente información: $SCR_1$ basado en las primeras 30 observaciones 55, gl 25; $SCR_2$ basado en las últimas 30 observaciones 140, gl 25. Realice la prueba de heteroscedasticidad de Goldfeld-Quandt en el nivel de significancia de 5\%. \\
+    \textcolor{blue}{
+        \textbf{Hipótesis}
+        \begin{align*}
+            H_0&:\ \sigma_1^2=\sigma_2^2\quad\text{(homoscedasticidad)}\\
+            H_1&:\ \sigma_2^2>\sigma_1^2\quad\text{(varianza mayor en el 2° subgrupo; prueba de una cola)}
+        \end{align*}
+        \vspace{0.2cm}
+        \textbf{Estadístico de prueba}
+        \begin{align*}
+        F 
+        = \frac{SCR_2/gl_2}{SCR_1/gl_1}
+        = \frac{140/25}{55/25}
+        = \frac{140}{55}
+        = 2.545455.
+        \end{align*}
+        Bajo $H_0$, $F\sim F(gl_2,gl_1)=F(25,25)$.
+        \vspace{0.2cm}\\
+        \textbf{Regla de decisión (una cola, $\alpha=0.05$)}\\
+        Rechazar $H_0$ si $F>F_{1-\alpha}(25,25)=1.955447$.
+        \vspace{0.2cm}\\
+        \textbf{Resultados}
+        \begin{align*}
+        F_{\text{obs}}&=2.545455,\\
+        F_{\text{crítico}}(\text{una cola},\,\alpha=0.05,\,25,25)&=1.955447,\\
+        p\text{-valor (una cola)}&=0.011518,\\
+        p\text{-valor (dos colas)}&=0.023036.
+        \end{align*}
+        \vspace{0.2cm}
+        \textbf{Conclusión}\\
+        Como $F_{\text{obs}}=2.545455>1.955447$ y el p-valor de una cola es $0.011518<0.05$, \textbf{rechazamos $H_0$ de homoscedasticidad} al 5\% y concluimos que existe evidencia de \textbf{heteroscedasticidad}, con varianza del error \emph{mayor en el segundo subgrupo} (últimas 30 observaciones).\\
+        Si planteamos la prueba bilateral, el p-valor $=0.023036<0.05$ también lleva a rechazar $H_0$.
+    }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pregunta 2}
+La tabla 11.9 presenta información acerca de los precios de acciones ($Y$) y los precios al consumidor ($X$) expresados en cambios porcentuales anuales para un corte transversal de 20 países.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \subsection{Grafique los datos en un diagrama de dispersión y analice.}
+    \textcolor{blue}{
+    La gráfica de dispersión (Figura~\ref{fig:q2_scatter}) muestra una relación positiva entre $X$ y $Y$, pero se observa un valor atípico correspondiente a Chile, con valores muy superiores al resto. Este outlier puede distorsionar la regresión y afectar las pruebas de supuestos.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\linewidth]{../plots/python/ex2/q2_scatter_t119.png}
+        \caption{Tabla 11.9: Dispersión $Y$ vs $X$ (20 países)}
+        \label{fig:q2_scatter}
+    \end{figure}
+    }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Efectúe la regresión de Y sobre X y examine los residuos de esta regresión (realice la gráfica y pruebas correspondientes). ¿Qué observa?}
+    \textcolor{blue}{
+        La regresión de $Y$ sobre $X$ muestra un coeficiente positivo (Cuadro~\ref{tab:q2b_coefs}), aunque influido por el outlier.
+        \input{latex_utils/tables/q2_b_coefs.tex}
+        El gráfico de residuos vs. ajustados (Figura~\ref{fig:q2_b_resid}) sugiere heteroscedasticidad y presencia de valores influyentes.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.45\linewidth]{../plots/python/ex2/q2_b_resid_vs_fitted.png}
+            \caption{Q2(b): Residuos vs Ajustados ($Y\sim X$)}
+            \label{fig:q2_b_resid}
+        \end{figure}
+        El QQ-plot (Figura~\ref{fig:q2_b_qq}) revela desviaciones de normalidad en colas.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.45\linewidth]{../plots/python/ex2/q2_b_resid_qqplot.png}
+            \caption{Q2(b): QQ-plot de residuos ($Y\sim X$)}
+            \label{fig:q2_b_qq}
+        \end{figure}
+        Las pruebas de heteroscedasticidad (Cuadro~\ref{tab:q2b_hetero}) confirman rechazo de homoscedasticidad.
+        \input{latex_utils/tables/q2_b_hetero_tests.tex}
+    }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Como los datos de Chile parecen atípicos, repita la regresión en b) sin la información sobre Chile. Ahora examine los residuos de esta regresión. ¿Qué observa? (realice la gráfica y pruebas correspondientes).}
+    \textcolor{blue}{
+    Al excluir a Chile, los coeficientes se estabilizan (Cuadro~\ref{tab:q2c_coefs}).
+    \input{latex_utils/tables/q2_c_coefs_no_chile.tex}
+    Los residuos vs. ajustados (Figura~\ref{fig:q2_c_resid}) muestran mayor homogeneidad.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.35\linewidth]{../plots/python/ex2/q2_c_resid_vs_fitted_no_chile.png}
+        \caption{Q2(c): Residuos vs Ajustados ($Y\sim X$, sin Chile)}
+        \label{fig:q2_c_resid}
+    \end{figure}
+    El QQ-plot (Figura~\ref{fig:q2_c_qq}) se ajusta mejor a la normal.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\linewidth]{../plots/python/ex2/q2_c_resid_qqplot_no_chile.png}
+        \caption{Q2(c): QQ-plot de residuos ($Y\sim X$, sin Chile)}
+        \label{fig:q2_c_qq}
+    \end{figure}
+    Las pruebas de heteroscedasticidad (Cuadro~\ref{tab:q2c_hetero}) ya no son significativas, sugiriendo homoscedasticidad sin Chile.
+    \input{latex_utils/tables/q2_c_hetero_tests_no_chile.tex}
+    }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Si, con base en los resultados de b), concluye que hubo heteroscedasticidad en la varianza del error, pero con base en los resultados de c) modifica este resultado, ¿qué conclusiones generales obtiene?}
+    \textcolor{blue}{
+        Comparando (b) y (c): la heteroscedasticidad detectada se debe al valor atípico de Chile.  
+        Al removerlo, los supuestos de homoscedasticidad y normalidad se cumplen mejor.\\  
+        Conclusión: el modelo no presenta problemas salvo por la influencia de un outlier.
+        \input{latex_utils/tables/q2_d_comparacion.tex}
+    }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pregunta 3}
+\textit{Gasto alimentario en India.} En la tabla 2.8 se proporcionaron datos sobre el gasto en alimentos y el gasto total de 55 familias de India.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Haga la regresión del gasto alimentario sobre el gasto total y examine los residuos obtenidos en dicha regresión.}
+    \textcolor{blue}{
+        \textbf{Modelo lineal:} \\
+        \begin{equation*}
+        \text{Food}_i = \beta_0 + \beta_1\,\text{Total}_i + \varepsilon_i,\qquad i=1,\dots,55.
+        \end{equation*}
+        \textbf{Estimación OLS y significancia} (ver Cuadro~\ref{tab:q3a_coefs}): el coeficiente de $\text{Total}$ es \(\hat\beta_1=0.4368\) (\(t=5.577\), $p<0.001$), con \(R^2=0.37\).
+        \input{latex_utils/tables/q3_a_coefs.tex}
+    }
+    \textcolor{blue}{
+        \textbf{Diagnósticos de residuos.} \\
+        El gráfico de residuos vs. ajustados sugiere varianza creciente (patrón en ``abanico''), indicio de heteroscedasticidad.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{../plots/python/ex3/q3_a_resid_vs_fitted.png}
+            \caption{Q3(a): Residuos vs Ajustados (Food~Total)}
+            \label{fig:q3_a_resid}
+        \end{figure}
+        \newpage
+        La normalidad de residuos es razonable (Jarque–Bera $p=0.8792$), según el QQ-plot:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{../plots/python/ex3/q3_a_resid_qqplot.png}
+            \caption{Q3(a): QQ-plot de residuos (Food~Total)}
+            \label{fig:q3_a_qq}
+        \end{figure}
+    }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Grafique los residuos al cuadrado obtenidos en el inciso a) contra el gasto total y verifique si existe algún patrón sistemático.}
+    \textcolor{blue}{
+        La relación positiva entre $\widehat{\varepsilon}_i^{\,2}$ y $\text{Total}_i$ es evidente, con mayor dispersión a niveles altos de gasto total.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{../plots/python/ex3/q3_b_resid2_vs_total.png}
+            \caption{Q3(b): $\widehat{\varepsilon}^{\,2}$ vs. Total}
+            \label{fig:q3_b_resid2}
+        \end{figure}
+        La gráfica sugiere un patrón sistemático de varianza creciente.
+    }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Si la gráfica del inciso b) sugiere heteroscedasticidad, aplique las pruebas de Park, correlación de orden de Spearman y White para determinar si la sensación respecto de la heteroscedasticidad observada en b) se sustenta con estas pruebas.}
+    \textcolor{blue}{
+        \textbf{Prueba de Park.} \\
+        Modelo probado:
+        \begin{equation*}
+        \ln(\widehat{\varepsilon}_i^{\,2}) = \alpha + \gamma\,\ln(\text{Total}_i) + u_i.
+        \end{equation*}
+        Hipótesis: $H_0\!:\ \gamma=0$ (homoscedasticidad) vs. $H_1\!:\ \gamma\neq 0$. \\
+        Resultado (Cuadro~\ref{tab:q3c_park}): \(\hat\gamma=3.7032\), $t=2.386$, $p=0.0206$ $\Rightarrow$ \textbf{rechazo de $H_0$}.
+        \input{latex_utils/tables/q3_c_park.tex}
+        \vspace{0.2cm}
+        \textbf{Correlación de Spearman.} \\
+        Se contrasta la monotonía entre $|\widehat{\varepsilon}_i|$ (o $\widehat{\varepsilon}_i^{\,2}$) y $\text{Total}_i$. Resultado: $\rho=0.3627$, $p=0.0065$ $\Rightarrow$ \textbf{evidencia de heteroscedasticidad}.\\
+        \input{latex_utils/tables/q3_c_spearman.tex}
+        \vspace{0.2cm}
+        \textbf{Prueba de White.} \\
+        Se reporta el estadístico y su $p$-valor en el Cuadro~\ref{tab:q3c_white}. El contraste compara contra una $\chi^2$ con g.l. correspondientes. Los resultados son consistentes con la presencia de heteroscedasticidad.
+        \\
+        \input{latex_utils/tables/q3_c_white.tex}
+        Las tres pruebas respaldan la sospecha de heteroscedasticidad detectada en (a)-(b).
+    }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Efectúe la regresión del logaritmo del gasto alimentario sobre el logaritmo del gasto total. Si observa heteroscedasticidad en el modelo lineal del inciso a) pero no en el modelo log-log, ¿a qué conclusión llega? Muestre todas las pruebas necesarias.}
+    \textcolor{blue}{
+        \textbf{Modelo log–log:}
+        \begin{equation*}
+        \ln(\text{Food}_i) = \beta_0 + \beta_1\,\ln(\text{Total}_i) + \eta_i.
+        \end{equation*}
+        Estimación OLS (Cuadro~\ref{tab:q3d_loglog_coefs}): \(\hat\beta_1=0.7363\) (\(t=6.100\), $p<0.001$), con \(R^2=0.412\).\\
+        \input{latex_utils/tables/q3_d_loglog_coefs.tex}
+        Los residuos del modelo log–log muestran varianza más estable y mejor normalidad:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{../plots/python/ex3/q3_d_loglog_resid_vs_fitted.png}
+            \caption{Q3(d): Residuos vs Ajustados (log–log)}
+            \label{fig:q3_d_resid}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{../plots/python/ex3/q3_d_loglog_resid_qqplot.png}
+            \caption{Q3(d): QQ-plot de residuos (log–log)}
+            \label{fig:q3_d_qq}
+        \end{figure}
+        Pruebas (Cuadro~\ref{tab:q3d_loglog_hetero}) indican no rechazar homoscedasticidad en el modelo transformado.
+        \\
+        \input{latex_utils/tables/q3_d_loglog_hetero.tex}
+        La heteroscedasticidad en el modelo lineal parece deberse a varianza proporcional al nivel de gasto. La transformación logarítmica estabiliza la varianza y mejora los supuestos clásicos, por lo que el modelo log–log es preferible para hacer inferencia.
+    }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pregunta 4}
+Establezca si las siguientes afirmaciones son verdaderas o falsas. Justifique brevemente.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cuando hay presencia de autocorrelación, los estimadores de MCO son sesgados e ineficientes.}
+\textcolor{blue}{
+    \textbf{Falso.} Con $E(u_t\mid X)=0$, los estimadores MCO siguen siendo \emph{insesgados} y consistentes; lo que falla es la eficiencia y la inferencia porque $\mathrm{Var}(\hat\beta)$ ya no es $\sigma^2(X'X)^{-1}$ sino $(X'X)^{-1}X'\Sigma X(X'X)^{-1}$ con $\Sigma\neq\sigma^2 I$. Los errores estándar “convencionales” quedan mal calculados; usar GLS o correcciones tipo Newey--West.
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La prueba DW de Durbin--Watson supone que la varianza del término de error u\_t es homoscedástica.}
+\textcolor{blue}{
+    \textbf{Verdadero.} El contraste DW se deriva bajo $H_0\!:\ \rho=0$ suponiendo errores homoscedásticos e independientes en ausencia de autocorrelación y sin $y_{t-1}$ como regresor. Heteroscedasticidad o términos dependientes afectan su validez.
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La transformación de primeras diferencias para eliminar la autocorrelación supone que el coeficiente de autocorrelación rho es -1.}
+\textcolor{blue}{
+    \textbf{Falso.} La \emph{primeras diferencias} corresponde al caso especial de cuasi‑diferenciación cuando $\rho=1$ (no $-1$). Para $u_t=\rho u_{t-1}+\varepsilon_t$, la transformación correcta es $y_t-\rho y_{t-1}$ y $x_t-\rho x_{t-1}$; si $\rho=1$ se reduce a diferenciar.
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Los valores R² de dos modelos, de los cuales uno corresponde a una regresión en primeras diferencias y el otro a una regresión en niveles, no son directamente comparables.}
+\textcolor{blue}{
+    \textbf{Verdadero.} En primeras diferencias la variable dependiente cambia de escala y varianza, por lo que $TSS$ y, en consecuencia, $R^2=1-SSR/TSS$ se definen sobre magnitudes distintas al modelo en niveles; no son comparables entre especificaciones con dependientes diferentes.
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Un DW de Durbin--Watson significativo no necesariamente denota autocorrelación de primer orden.}
+\textcolor{blue}{
+    \textbf{Verdadero.} Un DW extremo rechaza $H_0:\rho=0$, pero la causa puede ser autocorrelación de orden superior, estacionalidad, omisiones o mala especificación. El test no identifica que el proceso sea estrictamente AR(1).
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{En presencia de autocorrelación, las varianzas calculadas convencionalmente y los errores estándar de los valores pronosticados son ineficientes.}
+\textcolor{blue}{
+    \textbf{Verdadero.} Con $\Sigma\neq\sigma^2 I$, los estimadores de varianza “convencionales” son inválidos o inconsistentes y tienden a subestimar la incertidumbre; por tanto los errores estándar y bandas de predicción basadas en ellos no son confiables. Use GLS o correcciones robustas (HAC/Newey–West).
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La exclusión de una o varias variables importantes de un modelo de regresión puede producir un valor DW significativo.}
+\textcolor{blue}{
+    \textbf{Verdadero.} Omitir variables relevantes con persistencia temporal hace que el término de error incluya un componente serialmente correlacionado ($w_t$), induciendo $\rho\neq0$ y, por tanto, un estadístico DW significativo aunque el verdadero error estructural fuese no correlacionado.
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Link al repositorio con código fuente}
+\url{https://github.com/enriquegomeztagle/MCD-Econometria/tree/main/HWs/RegressionAssumptions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
