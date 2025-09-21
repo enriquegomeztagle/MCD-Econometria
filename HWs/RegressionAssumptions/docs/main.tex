@@ -332,16 +332,66 @@ Con base en esta información, estime el siguiente modelo de regresión:
 \end{equation*}
 
 \subsection{a) Interprete los resultados.}
-\textcolor{blue}{RESPUESTA}
+    \textcolor{blue}{
+        \textbf{Modelo log–log (elasticidades).} Los coeficientes se interpretan como elasticidades de $C$ respecto a cada insumo:\\
+        \begin{itemize}
+            \item $\widehat{\beta}_2=0.468$ (\textit{Inversión}): un 1\% más de $I$ se asocia con \(\approx 0.47\%\) más de $C$ ($t=2.82$, $p=0.009$).
+            \item $\widehat{\beta}_3=0.279$ (\textit{Trabajo} $L$): efecto positivo y significativo ($t=2.44$, $p=0.022$).
+            \item $\widehat{\beta}_4=-0.005$ (\textit{Horas} $H$): no significativo ($p=0.972$); no hay evidencia de efecto marginal de $H$ ceteris paribus.
+            \item $\widehat{\beta}_5=0.441$ (\textit{A}): efecto positivo y significativo ($t=4.15$, $p<0.001$).
+        \end{itemize}
+        Ajuste global alto: $R^2=0.936$ ($R^2_{\text{aj}}=0.926$) y $F=91.5$ ($p<10^{-13}$). Normalidad de residuos consistente con Jarque–Bera ($p=0.736$).\\
+        \input{latex_utils/tables/q7_a.tex}
+    }
 
-\subsection{b) Obtenga los residuos y los residuos estandarizados de la regresión anterior y gráfiquelos. ¿Qué opina sobre la presencia de autocorrelación en estos residuos?}
-\textcolor{blue}{RESPUESTA}
+    \newpage
+    \subsection{b) Obtenga los residuos y los residuos estandarizados de la regresión anterior y gráfiquelos. ¿Qué opina sobre la presencia de autocorrelación en estos residuos?}
+    \textcolor{blue}{
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\linewidth]{../plots/python/ex7/ex7_residuos_vs_time.png}
+        \caption{Residuos vs. tiempo}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\linewidth]{../plots/python/ex7/ex7_stdres_vs_time.png}
+        \caption{Residuos estandarizados vs. tiempo}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.55\linewidth]{../plots/python/ex7/ex7_residuos_vs_fitted.png}
+        \caption{Residuos vs. ajustados}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.55\linewidth]{../plots/python/ex7/ex7_qqplot_residuos.png}
+        \caption{QQ-plot de residuos}
+    \end{figure}
+    Los residuos muestran rachas persistentes (bloques positivos/negativos), lo que sugiere \textbf{autocorrelación positiva}. La nube residuos–ajustados no muestra patrón de abanico marcado (heteroscedasticidad no evidente). El QQ-plot es cercano a la diagonal (normalidad aceptable).
+    }
 
-\subsection{c) Estime el estadístico \texorpdfstring{$DW$}{DW} de Durbin--Watson y comente sobre la naturaleza de la autocorrelación presente en los datos.}
-\textcolor{blue}{RESPUESTA}
+    \subsection{c) Estime el estadístico \texorpdfstring{$DW$}{DW} de Durbin--Watson y comente sobre la naturaleza de la autocorrelación presente en los datos.}
+    \textcolor{blue}{
+    \textbf{Durbin–Watson.} $DW=0.9549$. Con $n=30$ y $k=4$, un valor tan bajo cae típicamente por debajo de $d_L$ $\Rightarrow$ \textbf{rechazo de $H_0:\rho=0$ a favor de autocorrelación positiva de primer orden}. Esto concuerda con: (i) el diagrama $u_t$ vs. $u_{t-1}$ con pendiente positiva y (ii) la ACF con barra significativa en el rezago 1.\\
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.55\linewidth]{../plots/python/ex7/ex7_scatter_resid_lag.png}
+        \caption{Dispersión $u_t$ vs. $u_{t-1}$}
+    \end{figure}
+    }
 
-\subsection{d) Realice las pruebas gráficas de autocorrelación de los errores poblacionales.}
-\textcolor{blue}{RESPUESTA}
+    \subsection{d) Realice las pruebas gráficas de autocorrelación de los errores poblacionales.}
+    \textcolor{blue}{
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.95\linewidth]{../plots/python/ex7/ex7_acf_residuos.png}
+        \caption{Función de autocorrelación (ACF) de los residuos}
+    \end{figure}
+    La ACF exhibe una barra positiva y significativa en $\ell=1$ y decaimiento posterior, consistente con un proceso \textbf{AR(1) con $\rho>0$}. En conjunto con $DW<2$, la evidencia apunta a autocorrelación positiva en los errores.
+    }
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 8}
 Con los datos proporcionados en la tabla 12.9, estime el modelo
 \begin{equation*}
@@ -350,19 +400,103 @@ Y_t = \beta_1 + \beta_2 X_t + u_t,
 \noindent donde $Y$ son inventarios y $X$ ventas, ambas medidas en miles de millones de dólares.
 
 \subsection{a) Estime la regresión anterior.}
-\textcolor{blue}{RESPUESTA}
+\textcolor{blue}{
+\textbf{Modelo en niveles y resultados.} Estimamos
+\begin{equation*}
+Y_t = \beta_1 + \beta_2 X_t + u_t,\qquad t=1950,\dots,1990.
+\end{equation*}
+Resumen descriptivo y correlaciones:\\
+\input{latex_utils/tables/ex8_descriptivos.tex}\\
+\input{latex_utils/tables/ex8_correlaciones.tex}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{../plots/python/ex8/ex8_series_ventas_inventarios.png}
+    \caption{Series en el tiempo: ventas e inventarios}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{../plots/python/ex8/ex8_scatter_inv_vs_sales.png}
+    \caption{Inventarios vs. ventas con recta OLS}
+\end{figure}
+\textbf{OLS (Modelo 1).}\\
+\input{latex_utils/tables/ex8_ols_m1.tex}
+\textit{Lectura:} $\hat\beta_2=1.184$ (p$<0.001$), $R^2=0.943$. Sin embargo, veremos abajo que los residuos presentan fuerte dependencia temporal.
+\textbf{OLS (Modelo 2, con tendencia):}
+\begin{equation*}
+Y_t = \beta_1 + \beta_2 X_t + \beta_3\,\text{Year}_t + u_t.
+\end{equation*}
+\input{latex_utils/tables/ex8_ols_m2.tex}
+El término de tendencia no resulta significativo y no corrige la dependencia temporal.
+}
 
 \subsection{b) Realice las pruebas gráficas de normalidad y de no autocorrelación.}
-\textcolor{blue}{RESPUESTA}
+\textcolor{blue}{
+\textbf{Gráficas de residuos (M1 y M2).}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{../plots/python/ex8/ex8_residuos_m1.png}
+    \caption{Residuos en el tiempo — Modelo 1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{../plots/python/ex8/ex8_residuos_m2.png}
+    \caption{Residuos en el tiempo — Modelo 2}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\linewidth]{../plots/python/ex8/ex8_qq_m1.png}\hfill
+    \includegraphics[width=0.48\linewidth]{../plots/python/ex8/ex8_qq_m2.png}
+    \caption{QQ-plot de residuos — M1 (izq.) y M2 (der.)}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\linewidth]{../plots/python/ex8/ex8_acf_m1.png}\hfill
+    \includegraphics[width=0.48\linewidth]{../plots/python/ex8/ex8_acf_m2.png}
+    \caption{ACF de residuos — M1 (izq.) y M2 (der.)}
+\end{figure}
+\textit{Lectura:} hay rachas largas en el tiempo y barras significativas en la ACF para rezagos bajos \Rightarrow \textbf{autocorrelación positiva}. Los QQ-plots no muestran colas extremas — \textbf{normalidad aceptable}. También es útil observar la evolución de la razón Inventarios/Ventas:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{../plots/python/ex8/ex8_series_ratio.png}
+    \caption{Razón Inventarios/Ventas}
+\end{figure}
+}
 
 \subsection{c) Con los residuos estimados, investigue si hay autocorrelación positiva mediante i) la prueba de Durbin--Watson y ii) las dos pruebas analíticas de normalidad para los errores poblacionales.}
-\textcolor{blue}{RESPUESTA}
+\textcolor{blue}{
+\textbf{Durbin–Watson y normalidad.} El estadístico de Durbin–Watson (DW) reportado por el script es:
+\begin{align*}
+DW_{\text{M1}}&=0.1256, & DW_{\text{M2}}&=0.1254.
+\end{align*}
+Como aproximación, $\hat\rho\approx 1-\tfrac{DW}{2}$ \Rightarrow $\hat\rho\approx 0.94$; valores tan bajos de $DW$ sugieren \textbf{autocorrelación positiva muy fuerte}.\\
+Para la normalidad, el script reporta Jarque–Bera (JB): p=0.360 (M1) y p=0.369 (M2), por lo que \textbf{no se rechaza la normalidad} de residuos.\\
+Además, el contraste RESET rechaza la especificación (ver cuadro de diagnósticos): hay evidencia de dinámica/curvatura omitida.
+\input{latex_utils/tables/ex8_diagnosticos.tex}
+}
 
 \subsection{d) Si sospecha que la estructura autorregresiva del error es de orden \texorpdfstring{$p=1$}{p=1}, verifíquelo con la prueba de Breusch--Godfrey.}
-\textcolor{blue}{RESPUESTA}
+\textcolor{blue}{
+\textbf{Breusch--Godfrey (BG, $p=1$).} El procedimiento consiste en estimar la regresión auxiliar sobre los residuos OLS
+\begin{equation*}
+\hat u_t = \alpha + \gamma_1 X_t + \cdots + \gamma_k Z_{kt} + \phi\,\hat u_{t-1} + v_t,
+\end{equation*}
+(\(Z_{kt}\) son los regresores originales) y contrastar $H_0\!:\ \phi=0$ vía LM $\sim\chi^2_1$.\
+\textit{Nota:} el script no imprimió el estadístico BG numérico, pero con $DW\approx0.126$ y la ACF de residuos, se \textbf{espera rechazar} $H_0$ a favor de un esquema AR(1) positivo en ambos modelos.
+}
 
 \subsection{e) Con base en los resultados de esta prueba, ¿cómo transformaría los datos para eliminar la autocorrelación?}
-\textcolor{blue}{RESPUESTA}
+\textcolor{blue}{
+\textbf{Corrección propuesta.} Dada la evidencia de AR(1) en los errores, se recomienda estimar por \emph{GLS} tipo Prais--Winsten/Cochrane--Orcutt, aplicando la cuasi-diferenciación
+\begin{equation*}
+Y_t-\rho Y_{t-1} = \beta_1(1-\rho) + \beta_2\,(X_t-\rho X_{t-1}) + \varepsilon_t,
+\end{equation*}
+con $\rho$ estimado (p.ej., por MCO sobre $\hat u_t$ vs. $\hat u_{t-1}$ o por máxima verosimilitud). Como alternativa robusta en presencia de tendencia común, trabajar en diferencias/elasticidades:
+\begin{align*}
+\Delta Y_t &= \beta_2\,\Delta X_t + e_t,\\
+\ln Y_t &= \alpha + \beta\,\ln X_t + u_t. 
+\end{align*}
+En cualquiera de los casos, re-evaluar ACF/PACF y DW, y reportar errores estándar \emph{HAC (Newey--West)} si persiste dependencia débil.
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Link al repositorio con código fuente}
 \url{https://github.com/enriquegomeztagle/MCD-Econometria/tree/main/HWs/RegressionAssumptions}
