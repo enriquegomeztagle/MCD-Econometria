@@ -277,6 +277,30 @@ Establezca si las siguientes afirmaciones son verdaderas o falsas. Justifique br
     \textbf{Verdadero.} Omitir variables relevantes con persistencia temporal hace que el término de error incluya un componente serialmente correlacionado ($w_t$), induciendo $\rho\neq0$ y, por tanto, un estadístico DW significativo aunque el verdadero error estructural fuese no correlacionado.
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pregunta 5}
+Con una muestra de 50 observaciones y 4 variables explicativas, ¿qué puede decir sobre autocorrelación si
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{a) DW=1.05}
+\textcolor{blue}{
+\textbf{Evidencia de autocorrelación positiva.} Regla aproximada: $\hat\rho\approx1-\tfrac{DW}{2}=1-0.525=0.475$. Con tablas DW (n=50, k=4), valores tan bajos suelen caer por debajo de $d_L$ → rechazar $H_0:\rho=0$ a favor de $\rho>0$.
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{b) DW=1.40}
+\textcolor{blue}{
+\textbf{Autocorrelación positiva moderada (posible) o zona indeterminada.} Aproximación: $\hat\rho\approx1-0.70=0.30$. Sin tablas exactas, es probable que $DW$ esté entre $d_L$ y $d_U$ → conclusión formal: \emph{indeterminada} al 5\%; indicios de $\rho>0$.
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{c) DW=2.50}
+\textcolor{blue}{
+\textbf{Indicios de autocorrelación negativa.} Aproximación: $\hat\rho\approx1-1.25=-0.25$. En términos de reglas DW, valores por encima de $2$ sugieren $\rho<0$; confirmar con comparación a $4-d_U$ (n=50, k=4).
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{d) DW=3.97}
+\textcolor{blue}{
+\textbf{Autocorrelación negativa muy fuerte.} $\hat\rho\approx1-\tfrac{3.97}{2}=1-1.985=-0.985$ (cercano a $-1$). Normalmente $DW>4-d_L$ → rechazar $H_0:\rho=0$ a favor de $\rho<0$.
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Link al repositorio con código fuente}
