@@ -11,6 +11,7 @@ import statsmodels.formula.api as smf
 from statsmodels.graphics.gofplots import qqplot
 from statsmodels.graphics.tsaplots import plot_acf
 from statsmodels.stats.diagnostic import het_breuschpagan, het_white, linear_reset
+from statsmodels.stats.diagnostic import acorr_breusch_godfrey
 
 
 import os
@@ -282,6 +283,16 @@ print(
     round(reset2.pvalue, 4),
     reset2.df_denom,
 )
+# %%
+bg1_lm, bg1_lm_p, bg1_f, bg1_f_p = acorr_breusch_godfrey(model1, nlags=1)
+bg2_lm, bg2_lm_p, bg2_f, bg2_f_p = acorr_breusch_godfrey(model2, nlags=1)
+
+print(
+    f"\nBreusch–Godfrey M1 (LM={bg1_lm:.4f}, p={bg1_lm_p:.4g}; F={bg1_f:.4f}, p={bg1_f_p:.4g})"
+)
+print(
+    f"Breusch–Godfrey M2 (LM={bg2_lm:.4f}, p={bg2_lm_p:.4g}; F={bg2_f:.4f}, p={bg2_f_p:.4g})"
+)
 
 # %%
 idx = ["M1: Inv ~ Ventas", "M2: Inv ~ Ventas + Año"]
@@ -293,11 +304,13 @@ results_tests = (
             "White p-valor": [wt1[1], wt2[1]],
             "JB p-valor": [float(jb1[1]), float(jb2[1])],
             "RESET p-valor": [reset1.pvalue, reset2.pvalue],
+            "BG LM p-valor": [bg1_lm_p, bg2_lm_p],
+            "BG F p-valor": [bg1_f_p, bg2_f_p],
             "R2": [model1.rsquared, model2.rsquared],
             "R2 Ajustado": [model1.rsquared_adj, model2.rsquared_adj],
             "N": [int(model1.nobs), int(model2.nobs)],
         },
-        index=idx,
+        index=["M1: Inv ~ Ventas", "M2: Inv ~ Ventas + Año"],
     )
     .reset_index()
     .rename(columns={"index": "Modelo"})
@@ -313,6 +326,8 @@ save_latex_table(
         "White p-valor": "White p",
         "JB p-valor": "Jarque–Bera p",
         "RESET p-valor": "RESET p",
+        "BG LM p-valor": "BG LM p",
+        "BG F p-valor": "BG F p",
         "R2": "$R^2$",
         "R2 Ajustado": "$R^2$ Ajustado",
         "N": "N",
