@@ -303,6 +303,22 @@ Con una muestra de 50 observaciones y 4 variables explicativas, ¿qué puede dec
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pregunta 6}
+Establezca las circunstancias en que sería adecuado cada uno de los siguientes métodos de estimación del coeficiente de autocorrelación de primer orden $\rho$:
+
+\subsection{a) Regresión de primeras diferencias}
+\textcolor{blue}{
+\textbf{Adecuada cuando} la autocorrelación es de primer orden \emph{positiva} y elevada ($0<\rho<1$, típicamente $\rho\approx1$) y se desea eliminar la persistencia. La cuasi‑diferenciación $y_t-\rho y_{t-1}$ se reduce a \\ \emph{primeras diferencias} si $\rho=1$. Útil con tendencias suaves o nivel casi integrado, sin $y_{t-1}$ como regresor y con $T$ moderado–grande (la pérdida de una observación no es crítica). No es recomendable si $\rho$ es negativo o pequeño.
+}
+
+\subsection{b) Regresión de promedios móviles}
+\textcolor{blue}{
+\textbf{Adecuada cuando} la autocorrelación de primer orden es \emph{negativa} (\(\rho\approx-1\)) y los errores alternan de signo entre periodos (serrucho). La transformación de \emph{promedios móviles} (p.ej. usar $\tfrac{1}{2}(y_t+y_{t-1})$ y $\tfrac{1}{2}(x_t+x_{t-1})$) suaviza esa alternancia y elimina gran parte de la correlación serial. Es preferible con ruido de alta frecuencia y sin tendencia marcada. No es la opción indicada para $\rho>0$.
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Link al repositorio con código fuente}
 \url{https://github.com/enriquegomeztagle/MCD-Econometria/tree/main/HWs/RegressionAssumptions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
