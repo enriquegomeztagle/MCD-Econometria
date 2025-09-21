@@ -1,12 +1,20 @@
-\begin{table}
+\begin{table}[H]
+\centering
 \caption{Pruebas de supuestos y métricas de ajuste para los modelos estimados.}
 \label{tab:ex8_diagnosticos}
+\scriptsize
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lrrrrrrrr}
+\rowcolor{blue!10}
 \toprule
-Modelo & Durbin–Watson & Breusch–Pagan p & White p & Jarque–Bera p & RESET p & $R^2$ & $R^2$ Ajustado & N \\
-\midrule
-M1: Inv ~ Ventas & 0.1256 & 0.1819 & 0.2371 & 0.3596 & 0.0000 & 0.9430 & 0.9415 & 41 \\
-M2: Inv ~ Ventas + Año & 0.1254 & 0.2126 & 0.1524 & 0.3690 & 0.0000 & 0.9440 & 0.9410 & 41 \\
+\rowcolor{blue!20}
+\textcolor{blue}{\textbf{Modelo}} & \textcolor{blue}{\textbf{Durbin–Watson}} & \textcolor{blue}{\textbf{Breusch–Pagan p}} & \textcolor{blue}{\textbf{White p}} & \textcolor{blue}{\textbf{Jarque–Bera p}} & \textcolor{blue}{\textbf{RESET p}} & \textcolor{blue}{\textbf{$R^2$}} & \textcolor{blue}{\textbf{$R^2$ Ajustado}} & \textcolor{blue}{\textbf{N}} \\
+\addlinespace
+\rowcolor{blue!10}
+\textcolor{blue}{M1: Inv ~ Ventas} & \textcolor{blue}{0.1256} & \textcolor{blue}{0.1819} & \textcolor{blue}{0.2371} & \textcolor{blue}{0.3596} & \textcolor{blue}{0.0000} & \textcolor{blue}{0.9430} & \textcolor{blue}{0.9415} & \textcolor{blue}{41} \\
+\rowcolor{blue!10}
+\textcolor{blue}{M2: Inv ~ Ventas + Año} & \textcolor{blue}{0.1254} & \textcolor{blue}{0.2126} & \textcolor{blue}{0.1524} & \textcolor{blue}{0.3690} & \textcolor{blue}{0.0000} & \textcolor{blue}{0.9440} & \textcolor{blue}{0.9410} & \textcolor{blue}{41} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
