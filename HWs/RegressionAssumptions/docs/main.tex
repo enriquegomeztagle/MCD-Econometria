@@ -277,8 +277,7 @@ Establezca si las siguientes afirmaciones son verdaderas o falsas. Justifique br
     \textbf{Verdadero.} Omitir variables relevantes con persistencia temporal hace que el término de error incluya un componente serialmente correlacionado ($w_t$), induciendo $\rho\neq0$ y, por tanto, un estadístico DW significativo aunque el verdadero error estructural fuese no correlacionado.
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 5}
 Con una muestra de 50 observaciones y 4 variables explicativas, ¿qué puede decir sobre autocorrelación si
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -294,7 +293,7 @@ Con una muestra de 50 observaciones y 4 variables explicativas, ¿qué puede dec
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{c) DW=2.50}
 \textcolor{blue}{
-\textbf{Indicios de autocorrelación negativa.} Aproximación: $\hat\rho\approx1-1.25=-0.25$. En términos de reglas DW, valores por encima de $2$ sugieren $\rho<0$; confirmar con comparación a $4-d_U$ (n=50, k=4).
+\textbf{Conclusión indeterminada al 5\% (posible $\rho<0$, no concluyente).} Aproximación: $\hat\rho\approx1-1.25=-0.25$. Para probarr $4-\textit{DW}$ con $d_L$ y $d_U$: aquí $4-2.50=1.50$ y, con $n=50$, $k=4$, suele cumplirse $d_L<1.50<d_U$ $\Rightarrow$ \emph{zona indeterminada}. No se rechaza ni se acepta $H_0:\rho=0$.
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{d) DW=3.97}
@@ -303,8 +302,6 @@ Con una muestra de 50 observaciones y 4 variables explicativas, ¿qué puede dec
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pregunta 6}
 Establezca las circunstancias en que sería adecuado cada uno de los siguientes métodos de estimación del coeficiente de autocorrelación de primer orden $\rho$:
 
@@ -315,9 +312,57 @@ Establezca las circunstancias en que sería adecuado cada uno de los siguientes 
 
 \subsection{b) Regresión de promedios móviles}
 \textcolor{blue}{
-\textbf{Adecuada cuando} la autocorrelación de primer orden es \emph{negativa} (\(\rho\approx-1\)) y los errores alternan de signo entre periodos (serrucho). La transformación de \emph{promedios móviles} (p.ej. usar $\tfrac{1}{2}(y_t+y_{t-1})$ y $\tfrac{1}{2}(x_t+x_{t-1})$) suaviza esa alternancia y elimina gran parte de la correlación serial. Es preferible con ruido de alta frecuencia y sin tendencia marcada. No es la opción indicada para $\rho>0$.
+\textbf{Útil como heurística cuando} la autocorrelación de primer orden es \emph{negativa} ($\rho\approx-1$) y los errores alternan de signo ("serrucho"). Promediar observaciones sucesivas (p.ej. $\tfrac{1}{2}(y_t+y_{t-1})$ y $\tfrac{1}{2}(x_t+x_{t-1})$) puede atenuar esa alternancia; sin embargo, \emph{no es el método estándar para estimar} $\rho$. En aplicaciones formales se prefiere \textbf{GLS} tipo \emph{Cochrane--Orcutt} o \emph{Prais--Winsten} estimando $\rho<0$, o bien revisar si hay \emph{sobre‑diferenciación} que induzca $\rho$ negativo. No es adecuado para $\rho>0$ ni para tendencias marcadas.
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pregunta 7}
+Consulte los datos sobre la industria del cobre de la tabla 12.7.
+
+Con base en esta información, estime el siguiente modelo de regresión:
+\begin{equation*}
+\ln C_t 
+= \beta_1 
++ \beta_2\,\ln I_t 
++ \beta_3\,\ln L_t 
++ \beta_4\,\ln H_t 
++ \beta_5\,\ln A_t 
++ u_t.
+\end{equation*}
+
+\subsection{a) Interprete los resultados.}
+\textcolor{blue}{RESPUESTA}
+
+\subsection{b) Obtenga los residuos y los residuos estandarizados de la regresión anterior y gráfiquelos. ¿Qué opina sobre la presencia de autocorrelación en estos residuos?}
+\textcolor{blue}{RESPUESTA}
+
+\subsection{c) Estime el estadístico \texorpdfstring{$DW$}{DW} de Durbin--Watson y comente sobre la naturaleza de la autocorrelación presente en los datos.}
+\textcolor{blue}{RESPUESTA}
+
+\subsection{d) Realice las pruebas gráficas de autocorrelación de los errores poblacionales.}
+\textcolor{blue}{RESPUESTA}
+\section{Pregunta 8}
+Con los datos proporcionados en la tabla 12.9, estime el modelo
+\begin{equation*}
+Y_t = \beta_1 + \beta_2 X_t + u_t,
+\end{equation*}
+\noindent donde $Y$ son inventarios y $X$ ventas, ambas medidas en miles de millones de dólares.
+
+\subsection{a) Estime la regresión anterior.}
+\textcolor{blue}{RESPUESTA}
+
+\subsection{b) Realice las pruebas gráficas de normalidad y de no autocorrelación.}
+\textcolor{blue}{RESPUESTA}
+
+\subsection{c) Con los residuos estimados, investigue si hay autocorrelación positiva mediante i) la prueba de Durbin--Watson y ii) las dos pruebas analíticas de normalidad para los errores poblacionales.}
+\textcolor{blue}{RESPUESTA}
+
+\subsection{d) Si sospecha que la estructura autorregresiva del error es de orden \texorpdfstring{$p=1$}{p=1}, verifíquelo con la prueba de Breusch--Godfrey.}
+\textcolor{blue}{RESPUESTA}
+
+\subsection{e) Con base en los resultados de esta prueba, ¿cómo transformaría los datos para eliminar la autocorrelación?}
+\textcolor{blue}{RESPUESTA}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Link al repositorio con código fuente}
 \url{https://github.com/enriquegomeztagle/MCD-Econometria/tree/main/HWs/RegressionAssumptions}
