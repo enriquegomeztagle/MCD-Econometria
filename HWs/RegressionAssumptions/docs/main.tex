@@ -400,13 +400,11 @@ Y_t = \beta_1 + \beta_2 X_t + u_t,
 \noindent donde $Y$ son inventarios y $X$ ventas, ambas medidas en miles de millones de dólares.
 
 \subsection{a) Estime la regresión anterior.}
-\textcolor{blue}{
-\textbf{Modelo en niveles y resultados.} Estimamos
+\textcolor{blue}{Estimamos
 \begin{equation*}
 Y_t = \beta_1 + \beta_2 X_t + u_t,\qquad t=1950,\dots,1990.
 \end{equation*}
-Resumen descriptivo y correlaciones:\\
-\input{latex_utils/tables/ex8_descriptivos.tex}\\
+\input{latex_utils/tables/ex8_descriptivos.tex}
 \input{latex_utils/tables/ex8_correlaciones.tex}
 \begin{figure}[H]
     \centering
@@ -420,7 +418,7 @@ Resumen descriptivo y correlaciones:\\
 \end{figure}
 \textbf{OLS (Modelo 1).}\\
 \input{latex_utils/tables/ex8_ols_m1.tex}
-\textit{Lectura:} $\hat\beta_2=1.184$ (p$<0.001$), $R^2=0.943$. Sin embargo, veremos abajo que los residuos presentan fuerte dependencia temporal.
+\textit{Lectura:} $\hat\beta_2=1.184$ (p$<0.001$), $R^2=0.943$. Sin embargo, veremos abajo que los residuos presentan fuerte dependencia temporal.\\
 \textbf{OLS (Modelo 2, con tendencia):}
 \begin{equation*}
 Y_t = \beta_1 + \beta_2 X_t + \beta_3\,\text{Year}_t + u_t.
@@ -429,7 +427,7 @@ Y_t = \beta_1 + \beta_2 X_t + \beta_3\,\text{Year}_t + u_t.
 El término de tendencia no resulta significativo y no corrige la dependencia temporal.
 }
 
-\subsection{b) Realice las pruebas gráficas de normalidad y de no autocorrelación.}
+\subsection{Realice las pruebas gráficas de normalidad y de no autocorrelación.}
 \textcolor{blue}{
 \textbf{Gráficas de residuos (M1 y M2).}
 \begin{figure}[H]
@@ -454,7 +452,7 @@ El término de tendencia no resulta significativo y no corrige la dependencia te
     \includegraphics[width=0.48\linewidth]{../plots/python/ex8/ex8_acf_m2.png}
     \caption{ACF de residuos — M1 (izq.) y M2 (der.)}
 \end{figure}
-\textit{Lectura:} hay rachas largas en el tiempo y barras significativas en la ACF para rezagos bajos \Rightarrow \textbf{autocorrelación positiva}. Los QQ-plots no muestran colas extremas — \textbf{normalidad aceptable}. También es útil observar la evolución de la razón Inventarios/Ventas:
+Hay rachas largas en el tiempo y barras significativas en la ACF para rezagos bajos $\Rightarrow$ \textbf{autocorrelación positiva}. Los QQ-plots no muestran colas extremas — \textbf{normalidad aceptable}. También es útil observar la evolución de la razón Inventarios/Ventas:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{../plots/python/ex8/ex8_series_ratio.png}
@@ -462,41 +460,42 @@ El término de tendencia no resulta significativo y no corrige la dependencia te
 \end{figure}
 }
 
-\subsection{c) Con los residuos estimados, investigue si hay autocorrelación positiva mediante i) la prueba de Durbin--Watson y ii) las dos pruebas analíticas de normalidad para los errores poblacionales.}
+\subsection{Con los residuos estimados, investigue si hay autocorrelación positiva mediante i) la prueba de Durbin--Watson y ii) las dos pruebas analíticas de normalidad para los errores poblacionales.}
 \textcolor{blue}{
-\textbf{Durbin–Watson y normalidad.} El estadístico de Durbin–Watson (DW) reportado por el script es:
+El estadístico de Durbin–Watson (DW) reportado por el script es:
 \begin{align*}
 DW_{\text{M1}}&=0.1256, & DW_{\text{M2}}&=0.1254.
 \end{align*}
-Como aproximación, $\hat\rho\approx 1-\tfrac{DW}{2}$ \Rightarrow $\hat\rho\approx 0.94$; valores tan bajos de $DW$ sugieren \textbf{autocorrelación positiva muy fuerte}.\\
+Como aproximación, $\hat\rho\approx 1-\tfrac{DW}{2}$ $\Rightarrow$ $\hat\rho\approx 0.94$; valores tan bajos de $DW$ sugieren \textbf{autocorrelación positiva muy fuerte}.\\
 Para la normalidad, el script reporta Jarque–Bera (JB): p=0.360 (M1) y p=0.369 (M2), por lo que \textbf{no se rechaza la normalidad} de residuos.\\
 Además, el contraste RESET rechaza la especificación (ver cuadro de diagnósticos): hay evidencia de dinámica/curvatura omitida.
 \input{latex_utils/tables/ex8_diagnosticos.tex}
 }
-
-\subsection{d) Si sospecha que la estructura autorregresiva del error es de orden \texorpdfstring{$p=1$}{p=1}, verifíquelo con la prueba de Breusch--Godfrey.}
-\textcolor{blue}{
-\textbf{Breusch--Godfrey (BG, $p=1$).} El procedimiento consiste en estimar la regresión auxiliar sobre los residuos OLS
-\begin{equation*}
-\hat u_t = \alpha + \gamma_1 X_t + \cdots + \gamma_k Z_{kt} + \phi\,\hat u_{t-1} + v_t,
-\end{equation*}
-(\(Z_{kt}\) son los regresores originales) y contrastar $H_0\!:\ \phi=0$ vía LM $\sim\chi^2_1$.\
-\textit{Nota:} el script no imprimió el estadístico BG numérico, pero con $DW\approx0.126$ y la ACF de residuos, se \textbf{espera rechazar} $H_0$ a favor de un esquema AR(1) positivo en ambos modelos.
-}
-
-\subsection{e) Con base en los resultados de esta prueba, ¿cómo transformaría los datos para eliminar la autocorrelación?}
-\textcolor{blue}{
-\textbf{Corrección propuesta.} Dada la evidencia de AR(1) en los errores, se recomienda estimar por \emph{GLS} tipo Prais--Winsten/Cochrane--Orcutt, aplicando la cuasi-diferenciación
-\begin{equation*}
-Y_t-\rho Y_{t-1} = \beta_1(1-\rho) + \beta_2\,(X_t-\rho X_{t-1}) + \varepsilon_t,
-\end{equation*}
-con $\rho$ estimado (p.ej., por MCO sobre $\hat u_t$ vs. $\hat u_{t-1}$ o por máxima verosimilitud). Como alternativa robusta en presencia de tendencia común, trabajar en diferencias/elasticidades:
-\begin{align*}
-\Delta Y_t &= \beta_2\,\Delta X_t + e_t,\\
-\ln Y_t &= \alpha + \beta\,\ln X_t + u_t. 
-\end{align*}
-En cualquiera de los casos, re-evaluar ACF/PACF y DW, y reportar errores estándar \emph{HAC (Newey--West)} si persiste dependencia débil.
-}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Si sospecha que la estructura autorregresiva del error es de orden \texorpdfstring{$p=1$}{p=1}, verifíquelo con la prueba de Breusch--Godfrey.}
+    \textcolor{blue}{
+        \textbf{Breusch--Godfrey (BG, $p=1$).} El procedimiento consiste en estimar la regresión auxiliar sobre los residuos OLS
+        \begin{equation*}
+        \hat u_t = \alpha + \gamma_1 X_t + \cdots + \gamma_k Z_{kt} + \phi\,\hat u_{t-1} + v_t,
+        \end{equation*}
+        (\(Z_{kt}\) son los regresores originales) y contrastar $H_0\!:\ \phi=0$ vía LM $\sim\chi^2_1$.\\[4pt]
+        En la tabla \ref{tab:ex8_diagnosticos}, usar las columnas \emph{BG LM p-valor} y \emph{BG F p-valor} para decidir: p-valores pequeños $\Rightarrow$ rechazo de $H_0$ (evidencia de AR(1) positiva), coherente con $DW\approx0.126$ y la ACF.
+    }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Con base en los resultados de esta prueba, ¿cómo transformaría los datos para eliminar la autocorrelación?}
+    \textcolor{blue}{
+        Dada la evidencia de AR(1) en los errores, se recomienda estimar por \emph{GLS} tipo Prais--Winsten/Cochrane--Orcutt, aplicando la cuasi-diferenciación
+        \begin{equation*}
+        Y_t-\rho Y_{t-1} = \beta_1(1-\rho) + \beta_2\,(X_t-\rho X_{t-1}) + \varepsilon_t,
+        \end{equation*}
+        con $\rho$ estimado (p.ej., por MCO sobre $\hat u_t$ vs. $\hat u_{t-1}$ o por máxima verosimilitud). Como alternativa robusta en presencia de tendencia común, trabajar en diferencias/elasticidades:
+        \begin{align*}
+        \Delta Y_t &= \beta_2\,\Delta X_t + e_t,\\
+        \ln Y_t &= \alpha + \beta\,\ln X_t + u_t. 
+        \end{align*}
+        En cualquiera de los casos, re-evaluar ACF/PACF y DW, y reportar errores estándar \emph{HAC (Newey--West)} si persiste dependencia débil.
+    }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Link al repositorio con código fuente}
 \url{https://github.com/enriquegomeztagle/MCD-Econometria/tree/main/HWs/RegressionAssumptions}
